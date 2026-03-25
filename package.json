@@ -1,0 +1,21 @@
+{
+  "name": "teto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/add1s0/Teto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/add1s0/Teto/issues"
+  },
+  "homepage": "https://github.com/add1s0/Teto#readme"
+}
