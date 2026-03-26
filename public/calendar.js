@@ -1,67 +1,67 @@
 const events = [
     {
-        title: "Vitamin D",
-        type: "medicine",
+        title: "Витамин D",
+        type: "лекарство",
         date: "2026-03-26",
         time: "08:00",
-        status: "taken",
-        note: "Taken after breakfast"
+        status: "прието",
+        note: "Приет след закуска"
     },
     {
-        title: "Blood Pressure Medicine",
-        type: "medicine",
+        title: "Лекарство за кръвно налягане",
+        type: "лекарство",
         date: "2026-03-26",
         time: "13:00",
-        status: "missed",
-        note: "Dose was missed"
+        status: "пропуснато",
+        note: "Дозата е пропусната"
     },
     {
-        title: "Doctor Appointment",
-        type: "health",
+        title: "Преглед при лекар",
+        type: "здраве",
         date: "2026-03-27",
         time: "10:30",
-        status: "postponed",
-        note: "Rescheduled for later"
+        status: "отложено",
+        note: "Пренасрочен за по-късно"
     },
     {
-        title: "Antibiotic",
-        type: "medicine",
+        title: "Антибиотик",
+        type: "лекарство",
         date: "2026-03-28",
         time: "09:00",
-        status: "taken",
-        note: "Taken on time"
+        status: "прието",
+        note: "Приет навреме"
     },
     {
-        title: "Pain Relief",
-        type: "medicine",
+        title: "Обезболяващо",
+        type: "лекарство",
         date: "2026-03-29",
         time: "21:00",
-        status: "missed",
-        note: "Evening dose missed"
+        status: "пропуснато",
+        note: "Вечерната доза е пропусната"
     },
     {
-        title: "Hydration Reminder",
-        type: "health",
+        title: "Напомняне за прием на вода",
+        type: "здраве",
         date: "2026-03-30",
         time: "14:00",
-        status: "taken",
-        note: "Daily health routine"
+        status: "прието",
+        note: "Ежедневна здравна рутина"
     },
     {
-        title: "Asthma Inhaler",
-        type: "medicine",
+        title: "Инхалатор за астма",
+        type: "лекарство",
         date: "2026-03-31",
         time: "07:30",
-        status: "postponed",
-        note: "Taken later than planned"
+        status: "отложено",
+        note: "Приет по-късно от планираното"
     },
     {
-        title: "Check Blood Sugar",
-        type: "health",
+        title: "Проверка на кръвната захар",
+        type: "здраве",
         date: "2026-04-01",
         time: "08:15",
-        status: "taken",
-        note: "Morning check completed"
+        status: "прието",
+        note: "Сутрешната проверка е приключена"
     }
 ];
 
@@ -80,7 +80,7 @@ function formatDateKey(date) {
 }
 
 function formatPrettyDate(date) {
-    return date.toLocaleDateString("en-GB", {
+    return date.toLocaleDateString("bg-BG", {
         day: "numeric",
         month: "long",
         year: "numeric"
@@ -97,7 +97,23 @@ function getWeekStart(date) {
 }
 
 function getMonthName(date) {
-    return date.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+    return date.toLocaleDateString("bg-BG", {
+        month: "long",
+        year: "numeric"
+    });
+}
+
+function getStatusClass(status) {
+    if (status === "прието") return "taken";
+    if (status === "пропуснато") return "missed";
+    if (status === "отложено") return "postponed";
+    return "";
+}
+
+function getTypeLabel(type) {
+    if (type === "лекарство") return "Лекарство";
+    if (type === "здраве") return "Здраве";
+    return type;
 }
 
 function updateLabel() {
@@ -107,7 +123,7 @@ function updateLabel() {
         const start = getWeekStart(currentDate);
         const end = new Date(start);
         end.setDate(start.getDate() + 6);
-        currentLabel.textContent = `${start.toLocaleDateString("en-GB")} - ${end.toLocaleDateString("en-GB")}`;
+        currentLabel.textContent = `${start.toLocaleDateString("bg-BG")} - ${end.toLocaleDateString("bg-BG")}`;
     } else {
         currentLabel.textContent = getMonthName(currentDate);
     }
@@ -125,8 +141,8 @@ function renderDayView() {
         calendarContainer.innerHTML = `
             <div class="day-view">
                 <div class="day-card">
-                    <h3>No events for this day</h3>
-                    <p>You have no medicines or health reminders scheduled.</p>
+                    <h3>Няма събития за този ден</h3>
+                    <p>Нямате планирани лекарства или здравни напомняния.</p>
                 </div>
             </div>
         `;
@@ -136,13 +152,14 @@ function renderDayView() {
     calendarContainer.innerHTML = `
         <div class="day-view">
             ${dayEvents.map(event => `
-                <div class="day-card ${event.status}">
+                <div class="day-card ${getStatusClass(event.status)}">
                     <div class="day-card-header">
                         <div>
                             <h3>${event.title}</h3>
-                            <p><strong>Time:</strong> ${event.time}</p>
+                            <p><strong>Тип:</strong> ${getTypeLabel(event.type)}</p>
+                            <p><strong>Час:</strong> ${event.time}</p>
                         </div>
-                        <span class="status-badge ${event.status}">
+                        <span class="status-badge ${getStatusClass(event.status)}">
                             ${capitalize(event.status)}
                         </span>
                     </div>
@@ -165,14 +182,14 @@ function renderWeekView() {
 
         html += `
             <div class="week-day">
-                <h3>${day.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" })}</h3>
+                <h3>${day.toLocaleDateString("bg-BG", { weekday: "short", day: "numeric", month: "short" })}</h3>
                 ${dayEvents.length
                     ? dayEvents.map(event => `
-                        <div class="week-event ${event.status}">
+                        <div class="week-event ${getStatusClass(event.status)}">
                             ${event.time} • ${event.title}
                         </div>
                     `).join("")
-                    : `<p>No events</p>`
+                    : `<p>Няма събития</p>`
                 }
             </div>
         `;
@@ -190,9 +207,10 @@ function renderMonthView() {
     const startDay = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-    const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const dayNames = ["Пон", "Вт", "Ср", "Чет", "Пет", "Съб", "Нед"];
 
     let html = `<div class="month-grid">`;
+
     dayNames.forEach(day => {
         html += `<div class="month-day-name">${day}</div>`;
     });
@@ -210,7 +228,10 @@ function renderMonthView() {
             <div class="month-cell">
                 <div class="month-date">${day}</div>
                 ${dayEvents.map(event => `
-                    <div class="month-dot ${event.status}" title="${event.title} - ${event.status}"></div>
+                    <div 
+                        class="month-dot ${getStatusClass(event.status)}" 
+                        title="${event.title} - ${capitalize(event.status)}"
+                    ></div>
                 `).join("")}
             </div>
         `;
@@ -221,16 +242,16 @@ function renderMonthView() {
 }
 
 function generateAIWarnings() {
-    const missedEvents = events.filter(event => event.status === "missed");
-    const postponedEvents = events.filter(event => event.status === "postponed");
+    const missedEvents = events.filter(event => event.status === "пропуснато");
+    const postponedEvents = events.filter(event => event.status === "отложено");
 
     let warnings = [];
 
     if (missedEvents.length > 0) {
         warnings.push(`
             <div class="ai-card risk">
-                <h3>Missed dose warning</h3>
-                <p>You have ${missedEvents.length} missed medication or health events. Repeated missed doses may reduce treatment effectiveness.</p>
+                <h3>Предупреждение за пропусната доза</h3>
+                <p>Имате ${missedEvents.length} пропуснати лекарствени или здравни събития. Повтарящите се пропуски могат да намалят ефективността на лечението.</p>
             </div>
         `);
     }
@@ -238,8 +259,8 @@ function generateAIWarnings() {
     if (postponedEvents.length > 0) {
         warnings.push(`
             <div class="ai-card">
-                <h3>Postponed event reminder</h3>
-                <p>You have ${postponedEvents.length} postponed reminders. Try to reschedule them as soon as possible to avoid disruption in your care routine.</p>
+                <h3>Напомняне за отложено събитие</h3>
+                <p>Имате ${postponedEvents.length} отложени напомняния. Опитайте да ги пренасрочите възможно най-скоро, за да не нарушите здравната си рутина.</p>
             </div>
         `);
     }
@@ -247,8 +268,8 @@ function generateAIWarnings() {
     if (missedEvents.length === 0 && postponedEvents.length === 0) {
         warnings.push(`
             <div class="ai-card safe">
-                <h3>Great job</h3>
-                <p>All scheduled medicines and health events appear to be on track.</p>
+                <h3>Чудесна работа</h3>
+                <p>Всички планирани лекарства и здравни събития изглеждат изпълнени по график.</p>
             </div>
         `);
     }

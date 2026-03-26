@@ -273,17 +273,28 @@ h1, h2, h3, h4 {
 .day-card-header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 15px;
     flex-wrap: wrap;
     margin-bottom: 6px;
 }
 
+.day-card-header > div {
+    flex: 1;
+    min-width: 0;
+}
+
 .status-badge {
+    display: inline-block;
+    align-self: flex-start;
+    flex: 0 0 auto;
     padding: 6px 12px;
     border-radius: 999px;
     color: white;
     font-size: 0.9rem;
     font-weight: bold;
+    white-space: nowrap;
+    line-height: 1.2;
 }
 
 .status-badge.taken {
