@@ -20,7 +20,7 @@ body {
 .hero {
     background: 
         linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
-        url("public/backgroundHome.png.png") no-repeat center center;
+        url("backgroundHome.png") no-repeat center center;
     background-size: cover;
 
     height: 90vh;
