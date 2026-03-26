@@ -1,0 +1,226 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================= BODY ================= */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #DDF4E7;
+}
+
+/* ================= NAVBAR ================= */
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 1% 4%;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 5vh;
+    margin-right: 0.5rem;
+}
+
+.logo .med {
+    color: #124170;
+}
+
+.logo .guide {
+    color: #67C090;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #124170;
+    padding: 0.4em 1em;
+    border-radius: 0.6rem;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #67C090;
+    color: white;
+}
+
+/* ================= DASHBOARD ================= */
+.dashboard-container {
+    padding: 3%;
+}
+
+/* ================= WELCOME ================= */
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5%;
+}
+
+.welcome h2 {
+    color: #124170;
+    font-size: 2rem;
+}
+
+.welcome p {
+    color: #26667F;
+    margin-top: 0.3rem;
+}
+
+/* QUICK ACTIONS */
+.quick-actions button {
+    margin-left: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.6rem;
+    background-color: #124170;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.quick-actions button:hover {
+    background-color: #26667F;
+}
+
+/* ================= SUMMARY ================= */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5%;
+}
+
+.summary-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.6rem 1.5rem rgba(0,0,0,0.06);
+}
+
+.summary-card h3 {
+    color: #124170;
+    margin-bottom: 0.5rem;
+}
+
+.summary-card p {
+    color: #26667F;
+}
+
+/* ================= SECTIONS ================= */
+.card-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2%;
+    box-shadow: 0 0.6rem 1.5rem rgba(0,0,0,0.05);
+}
+
+.card-section h2 {
+    color: #124170;
+    margin-bottom: 1rem;
+}
+
+/* ================= SCHEDULE ================= */
+.schedule-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.schedule-item button {
+    margin-left: 0.3rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+/* BUTTON TYPES */
+.taken {
+    background: #67C090;
+    color: white;
+}
+
+.missed {
+    background: #ff6b6b;
+    color: white;
+}
+
+.snooze {
+    background: #26667F;
+    color: white;
+}
+
+.pending {
+    background: #ccc;
+}
+
+/* ================= CONDITIONS ================= */
+.condition-item {
+    margin-bottom: 1rem;
+}
+
+.condition-item button {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    background: #124170;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* ================= PROGRESS ================= */
+.reward-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #67C090;
+    color: white;
+    border-radius: 0.8rem;
+}
+
+/* ================= BOTTOM ACTIONS ================= */
+.quick-actions-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 2%;
+}
+
+.quick-actions-bottom button {
+    padding: 0.7rem 1.3rem;
+    border-radius: 0.6rem;
+    border: none;
+    background: #124170;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.quick-actions-bottom button:hover {
+    background: #26667F;
+}
+
+.schedule-item button.active {
+    outline: 2px solid #124170;
+    transform: scale(1.05);
+}

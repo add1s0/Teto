@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedGuide - Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar-custom">
+    <div class="logo">
+        <a href="home.html">
+            <img src="logo.png" alt="MedGuide Logo">
+            <span class="med">Med</span><span class="guide">Guide</span>
+        </a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="accessmap.html">AccessMap</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
+        <li><a href="help.html">Help</a></li>
+    </ul>
+</nav>
+
+<main class="dashboard-container">
+
+    <!-- WELCOME -->
+    <section class="welcome">
+        <div>
+            <h2>Здравей, Teto 👋</h2>
+            <p>Ето твоето здравно обобщение за днес</p>
+        </div>
+
+        <div class="quick-actions">
+            <button>Add Medication</button>
+            <button>Log Symptoms</button>
+        </div>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="summary-grid">
+        <div class="summary-card">
+            <h3>Medications Today</h3>
+            <p>3 medications</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>Next Reminder</h3>
+            <p>14:00</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>Tracked Symptoms</h3>
+            <p>2 today</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>Nearby Places</h3>
+            <p>5 locations</p>
+        </div>
+    </section>
+
+    <!-- TODAY SCHEDULE -->
+    <section class="card-section">
+        <h2>Today’s Schedule</h2>
+
+        <div class="schedule-item">
+            <span>08:00 – Aspirin</span>
+            <div>
+                <button class="taken">Taken</button>
+                <button class="missed">Missed</button>
+                <button class="snooze">Snooze</button>
+            </div>
+        </div>
+
+        <div class="schedule-item">
+            <span>14:00 – Vitamin D</span>
+            <div>
+                <button class="pending">Pending</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MY CONDITIONS -->
+    <section class="card-section">
+        <h2>My Conditions</h2>
+
+        <div class="condition-item">
+            <h4>Hypertension</h4>
+            <p>Stable • Last updated: Today</p>
+            <button>View Details</button>
+        </div>
+
+        <div class="condition-item">
+            <h4>Diabetes Type 2</h4>
+            <p>Moderate • Last updated: Yesterday</p>
+            <button>View Details</button>
+        </div>
+    </section>
+
+    <!-- SYMPTOMS -->
+    <section class="card-section">
+        <h2>Symptoms Tracker</h2>
+
+        <p>Headache — mild — today 10:30</p>
+        <p>Fatigue — medium — yesterday</p>
+
+        <button class="secondary-btn">+ Add Symptom</button>
+    </section>
+
+    <!-- PROGRESS -->
+    <section class="card-section">
+        <h2>Health Insights</h2>
+
+        <p>🔥 Medication streak: 7 days</p>
+        <p>📊 Adherence: 92%</p>
+        <p>✅ Symptoms improved this week</p>
+
+        <div class="reward-box">
+            <p>🎁 Reward unlocked!</p>
+            <p>10% discount at City Pharmacy</p>
+        </div>
+    </section>
+
+
+</main>
+
+</body>
+</html>
