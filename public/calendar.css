@@ -4,63 +4,6 @@ body {
     position: relative;
 }
 
-.navbar-custom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 0.625rem 1.875rem;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
-}
-
-.logo a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--primary-color);
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-.logo img {
-    height: 5vh;
-    margin-right: 0.5rem;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-links li {
-    margin-left: 1rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--primary-color);
-    padding: 0.4em 1em;
-    border-radius: 0.6rem;
-    transition: 0.3s;
-    white-space: nowrap;
-}
-
-.nav-links a:hover,
-.nav-links a.active-link {
-    background-color: var(--accent-green);
-    color: white;
-}
-
-.logo .med {
-    color: var(--primary-color);
-}
-
-.logo .guide {
-    color: var(--accent-green);
-}
-
 .hero {
     display: flex;
     justify-content: center;
@@ -378,15 +321,6 @@ body {
 }
 
 @media (max-width: 43.75rem) {
-    .navbar-custom {
-        flex-direction: column;
-        gap: 0.625rem;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
 
     .hero-box h1 {
         font-size: 2rem;
