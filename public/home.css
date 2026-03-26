@@ -20,7 +20,7 @@ body {
 .hero {
     background: 
         linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
-        url("backgroundHome.png") no-repeat center center;
+        url("backgroundHomeGreen.png") no-repeat center center;
     background-size: cover;
 
     height: 90vh;
@@ -73,18 +73,20 @@ body {
 }
 
 .hero-box {
-    background-color: white;
+    background: rgba(255, 255, 255, 0.15); /* прозрачно */
+    backdrop-filter: blur(10px); /* blur ефект */
+    -webkit-backdrop-filter: blur(10px); /* за Safari */
+
     padding: 3rem 4rem;
     border-radius: 1.2rem;
 
     display: flex;
     flex-direction: column;
-    align-items: center;   /* центрира хоризонтално */
+    align-items: center;
     justify-content: center;
+    text-align: center;
 
-    text-align: center;    /* центрира текста */
-    
-    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.08);
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.1);
     max-width: 600px;
 }
 
