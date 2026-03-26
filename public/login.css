@@ -147,9 +147,3 @@ form {
     transition: 0.3s;
     white-space: nowrap;
 }
-
-/* Hover */
-.nav-links a:hover {
-    background-color: #67C090;
-    color: white;
-}
