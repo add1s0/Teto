@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCondition | medGuide</title>
+    <link rel="stylesheet" href="mycondition.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar-custom">
+        <div class="logo">
+            <a href="home.html">
+                <img src="logo.png" alt="MedGuide Logo">
+                <span class="med">Med</span><span class="guide">Guide</span>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="accessmap.html">AccessMap</a></li>
+            <li><a href="calendar.html">Calendar</a></li>
+            <li><a href="help.html">Help</a></li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-box">
+                <h1>MyCondition / Health Guide</h1>
+                <p>
+                    Персонализирана информация и AI помощ, която ти помага
+                    да разбираш по-добре състоянието си.
+                </p>
+            </div>
+        </section>
+
+        <!-- INPUT -->
+        <section class="condition-input-section">
+            <div class="section-box">
+                <h2>Въведи диагноза или състояние</h2>
+                <p>Напиши състояние, за да получиш персонализирано ръководство.</p>
+
+                <div class="input-area">
+                    <input type="text" id="conditionInput" placeholder="Напр. астма, диабет...">
+                    <button id="generateGuideBtn">Generate Guide</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GUIDE -->
+        <section class="guide-section">
+            <div class="section-box">
+                <h2>Ръководство за теб</h2>
+
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <h3>Какво се случва в тялото</h3>
+                        <p id="bodyInfo">Въведи състояние...</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <h3>Какво да очакваш</h3>
+                        <p id="expectInfo">Ще получиш насоки...</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <h3>Как да говориш с лекаря</h3>
+                        <p id="doctorInfo">Полезни въпроси...</p>
+                    </div>
+
+                    <div class="guide-card">
+                        <h3>Връзка с MedRemind</h3>
+                        <p id="medInfo">Защо лекарствата са важни...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAT -->
+        <section class="chatbot-section">
+            <div class="section-box">
+                <h2>Ask AI</h2>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot">
+                            Здравей! Попитай ме нещо.
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <input type="text" id="chatInput">
+                        <button id="sendBtn">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="mycondition.js"></script>
+</body>
+</html>
