@@ -2,11 +2,20 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const MedicineReference = sequelize.define('MedicineReference', {
-    name: { type: DataTypes.STRING, allowNull: false, unique: true },
-    category: { type: DataTypes.STRING },
-    description: { type: DataTypes.TEXT }
+    name: { 
+        type: DataTypes.STRING, 
+        allowNull: false, 
+        unique: true 
+    },
+    category: { 
+        type: DataTypes.STRING 
+    },
+    description: { 
+        type: DataTypes.TEXT 
+    }
 }, {
-    timestamps: false // За да не изисква createdAt/updatedAt при INSERT
+    // В seed.sql имаш NOW(), затова оставяме timestamps: true
+    timestamps: true 
 });
 
-module.exports = MedicineReference; // ВАЖНО: Експорт
+module.exports = MedicineReference;
