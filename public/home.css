@@ -1,0 +1,195 @@
+/* Цветова палитра */
+:root {
+    --bg-color: #DDF4E7;
+    --accent-green: #67C090;
+    --secondary-color: #26667F;
+    --primary-color: #124170;
+    --text-light: #ffffff;
+}
+
+/* Body */
+body {
+    font-family: Arial, sans-serif;
+    color: var(--secondary-color);
+    background-color: var(--bg-color);
+    padding: 0;
+    margin: 0;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(18,65,112,0.75), rgba(18,65,112,0.75)),
+                url('https://via.placeholder.com/1500x600') no-repeat center center;
+    background-size: cover;
+    color: var(--text-light);
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 10%;
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    max-width: 60%;
+}
+
+/* Hero Buttons */
+.hero .btn {
+    transition: 0.3s;
+}
+
+.hero .btn:hover {
+    transform: translateY(-0.2rem);
+}
+
+.hero .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.hero .btn-primary:hover {
+    background-color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+.hero .btn-outline-light {
+    border-color: var(--text-light);
+    color: var(--text-light);
+}
+
+.hero .btn-outline-light:hover {
+    background-color: var(--text-light);
+    color: var(--primary-color);
+}
+
+/* Основни секции - кутийки */
+.section-card {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem auto;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.section-card:hover {
+    transform: translateY(-0.3rem);
+}
+
+/* Features Section */
+.features .icon {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.features h4 {
+    color: var(--primary-color);
+}
+
+.features .col-md-4 {
+    transition: 0.3s;
+}
+
+.features .col-md-4:hover {
+    transform: translateY(-0.3rem);
+}
+
+.features p {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Testimonials Section */
+.testimonial {
+    background-color: white;
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    margin: 2rem auto;
+    max-width: 80%;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+}
+
+.testimonial h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.testimonial p {
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 1% 3%;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+}
+
+/* Лого */
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 5vh;
+    margin-right: 1%;
+}
+
+/* Навигация */
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin-left: 2%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--primary-color);
+    padding: 0.4em 1em;
+    border-radius: 0.6rem;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+/* Hover ефект */
+.nav-links a:hover {
+    background-color: var(--accent-green);
+    color: white;
+}
+
+/* Цветове за логото */
+.logo .med {
+    color: var(--primary-color);
+}
+
+.logo .guide {
+    color: var(--accent-green);
+}
