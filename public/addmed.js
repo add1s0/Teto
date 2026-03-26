@@ -2,6 +2,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const container = document.getElementById("medications-container");
     const form = document.getElementById("medicineForm");
+    function setupAutocomplete(card) {
+    const input = card.querySelector('.medInput');
+    const list = card.querySelector('.suggestionsList');
+    input.addEventListener('input', async () => {
+        const val = input.value.trim();
+        if (val.length < 2) { list.style.display = 'none'; return; }
+        try {
+            const res = await fetch(`http://localhost:3000/meds/search?term=${encodeURIComponent(val)}`);
+            const medicines = await res.json();
+            if (medicines.length > 0) {
+                list.innerHTML = medicines.map(m => `<li class="suggestion-item">${m.name}</li>`).join('');
+                list.style.display = 'block';
+            } else { list.style.display = 'none'; }
+        } catch (err) { console.error(err); }
+    });
+    list.addEventListener('click', (e) => {
+        if (e.target.classList.contains('suggestion-item')) {
+            input.value = e.target.innerText;
+            list.style.display = 'none';
+        }
+    });
+    document.addEventListener('click', (e) => { if (!card.contains(e.target)) list.style.display = 'none'; });
+}
 
     // ===== DOSE → CREATE TIME INPUTS =====
     function attachDoseListener(card) {
@@ -50,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".medicine-card").forEach(card => {
         attachDoseListener(card);
         attachRemoveListener(card);
+        setupAutocomplete(card);
     });
 
     // ===== ADD NEW MEDICINE =====
@@ -98,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 dose,
                 times
             });
+            setupAutocomplete(newCard);
         });
 
         console.log("DATA:", medicines);

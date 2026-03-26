@@ -1,3 +1,5 @@
 node_modules/
 .env
 public/test.html
+test.js
+addmed/
