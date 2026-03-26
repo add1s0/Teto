@@ -17,7 +17,6 @@ generateGuideBtn.addEventListener("click", () => {
     medInfo.textContent = `Лекарствата са важни при ${condition}.`;
 });
 
-/* CHAT */
 const chatInput = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
 const chatMessages = document.getElementById("chatMessages");

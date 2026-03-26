@@ -1,4 +1,3 @@
-/* Цветова палитра */
 :root {
     --bg-color: #DDF4E7;
     --accent-green: #67C090;
@@ -7,7 +6,6 @@
     --text-light: #ffffff;
 }
 
-/* Body */
 body {
     font-family: Arial, sans-serif;
     color: var(--secondary-color);
@@ -16,7 +14,6 @@ body {
     margin: 0;
 }
 
-/* Hero Section */
 .hero {
     background: 
         linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
@@ -43,7 +40,6 @@ body {
     max-width: 60%;
 }
 
-/* Hero Buttons */
 .hero .btn {
     transition: 0.3s;
 }
@@ -90,7 +86,6 @@ body {
     max-width: 600px;
 }
 
-/* текст */
 .hero-box h1 {
     color: var(--primary-color);
     font-size: 2.8rem;
@@ -103,7 +98,6 @@ body {
     margin-bottom: 1.5rem;
 }
 
-/* бутони */
 .hero-box .btn-primary {
     background-color: var(--primary-color);
     border: none;
@@ -119,7 +113,6 @@ body {
     color: white;
 }
 
-/* Основни секции - кутийки */
 .section-card {
     background-color: white;
     border-radius: 1rem;
@@ -133,7 +126,6 @@ body {
     transform: translateY(-0.3rem);
 }
 
-/* Features Section */
 .features .icon {
     font-size: 3rem;
     color: var(--primary-color);
@@ -157,7 +149,6 @@ body {
     margin: 0 auto;
 }
 
-/* Testimonials Section */
 .testimonial {
     background-color: white;
     padding: 3rem 2rem;
@@ -177,7 +168,6 @@ body {
     font-style: italic;
 }
 
-/* ================= NAVBAR ================= */
 
 .navbar-custom {
     display: flex;
@@ -188,7 +178,7 @@ body {
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
 }
 
-/* Лого */
+
 .logo a {
     display: flex;
     align-items: center;
@@ -203,7 +193,6 @@ body {
     margin-right: 1%;
 }
 
-/* Навигация */
 .nav-links {
     list-style: none;
     display: flex;
@@ -224,13 +213,11 @@ body {
     white-space: nowrap;
 }
 
-/* Hover ефект */
 .nav-links a:hover {
     background-color: var(--accent-green);
     color: white;
 }
 
-/* Цветове за логото */
 .logo .med {
     color: var(--primary-color);
 }
