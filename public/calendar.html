@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar | medGuide</title>
+    <link rel="stylesheet" href="calendar.css">
+</head>
+<body>
+
+    <nav class="navbar-custom">
+        <div class="logo">
+            <a href="home.html">
+                <img src="logo.png" alt="MedGuide Logo">
+                <span class="med">Med</span><span class="guide">Guide</span>
+            </a>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="accessmap.html">AccessMap</a></li>
+            <li><a href="calendar.html" class="active-link">Calendar</a></li>
+            <li><a href="help.html">Help</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="hero">
+            <div class="hero-box">
+                <h1>Calendar / Schedule Page</h1>
+                <p>
+                    Следи лекарствата и здравните си събития в дневен, седмичен и месечен изглед.
+                </p>
+            </div>
+        </section>
+
+        <section class="controls-section">
+            <div class="section-box">
+                <div class="top-controls">
+                    <div class="view-buttons">
+                        <button class="view-btn active" data-view="day">Ден</button>
+                        <button class="view-btn" data-view="week">Седмица</button>
+                        <button class="view-btn" data-view="month">Месец</button>
+                    </div>
+
+                    <div class="date-nav">
+                        <button id="prevBtn">←</button>
+                        <h2 id="currentLabel">Днес</h2>
+                        <button id="nextBtn">→</button>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <span class="legend-item"><span class="legend-color taken"></span>Взето</span>
+                    <span class="legend-item"><span class="legend-color missed"></span>Пропуснато</span>
+                    <span class="legend-item"><span class="legend-color postponed"></span>Отложено</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="calendar-section">
+            <div class="section-box">
+                <div id="calendarContainer"></div>
+            </div>
+        </section>
+
+        <section class="ai-section">
+            <div class="section-box">
+                <h2>AI Здравен анализ</h2>
+                <div id="aiWarnings" class="ai-warnings"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="calendar.js"></script>
+</body>
+</html>
