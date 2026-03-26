@@ -1,159 +1,130 @@
-/* ================= RESET ================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* ================= BODY ================= */
 body {
-    font-family: Arial, sans-serif;
     background-color: #DDF4E7;
-}
-
-/* ================= NAVBAR ================= */
-.navbar-custom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 1% 4%;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
-}
-
-.logo a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-.logo img {
-    height: 5vh;
-    margin-right: 0.5rem;
-}
-
-.logo .med {
     color: #124170;
 }
 
-.logo .guide {
-    color: #67C090;
+navbar-section,
+footer-section {
+    display: block;
+    width: 100%;
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #124170;
-    padding: 0.4em 1em;
-    border-radius: 0.6rem;
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    background-color: #67C090;
-    color: white;
-}
-
-/* ================= DASHBOARD ================= */
 .dashboard-container {
-    padding: 3%;
+    width: 100%;
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 3rem;
 }
 
-/* ================= WELCOME ================= */
 .welcome {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2.5%;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
 .welcome h2 {
     color: #124170;
-    font-size: 2rem;
+    font-size: 2.4rem;
+    margin-bottom: 0.4rem;
 }
 
 .welcome p {
     color: #26667F;
-    margin-top: 0.3rem;
+    font-size: 1.2rem;
 }
 
-/* QUICK ACTIONS */
+.quick-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
 .quick-actions button {
-    margin-left: 0.5rem;
-    padding: 0.6rem 1.2rem;
+    padding: 0.85rem 1.4rem;
     border: none;
-    border-radius: 0.6rem;
+    border-radius: 0.75rem;
     background-color: #124170;
     color: white;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 1rem;
 }
 
 .quick-actions button:hover {
     background-color: #26667F;
 }
 
-/* ================= SUMMARY ================= */
 .summary-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
-    margin-bottom: 2.5%;
+    margin-bottom: 2rem;
 }
 
 .summary-card {
     background: white;
-    padding: 1.5rem;
+    padding: 1.75rem;
     border-radius: 1rem;
     box-shadow: 0 0.6rem 1.5rem rgba(0,0,0,0.06);
 }
 
 .summary-card h3 {
     color: #124170;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.1rem;
 }
 
 .summary-card p {
     color: #26667F;
+    font-size: 1rem;
 }
 
-/* ================= SECTIONS ================= */
 .card-section {
     background: white;
-    padding: 1.5rem;
+    padding: 1.75rem;
     border-radius: 1rem;
-    margin-bottom: 2%;
+    margin-bottom: 2rem;
     box-shadow: 0 0.6rem 1.5rem rgba(0,0,0,0.05);
 }
 
 .card-section h2 {
     color: #124170;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
+    font-size: 1.8rem;
 }
 
-/* ================= SCHEDULE ================= */
 .schedule-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.schedule-item span {
+    font-size: 1.1rem;
+    color: #111;
+}
+
+.schedule-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .schedule-item button {
-    margin-left: 0.3rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 0.5rem;
+    padding: 0.55rem 0.95rem;
+    border-radius: 0.6rem;
     border: none;
     cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.2s;
 }
 
-/* BUTTON TYPES */
 .taken {
     background: #67C090;
     color: white;
@@ -170,57 +141,122 @@ body {
 }
 
 .pending {
-    background: #ccc;
+    background: #d9d9d9;
+    color: #222;
 }
 
-/* ================= CONDITIONS ================= */
 .condition-item {
-    margin-bottom: 1rem;
+    margin-bottom: 1.6rem;
+}
+
+.condition-item:last-child {
+    margin-bottom: 0;
+}
+
+.condition-item h4 {
+    font-size: 1.5rem;
+    margin-bottom: 0.35rem;
+    color: #111;
+}
+
+.condition-item p {
+    margin-bottom: 0.75rem;
+    color: #222;
+    font-size: 1rem;
 }
 
 .condition-item button {
-    margin-top: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    border: none;
-    background: #124170;
-    color: white;
-    cursor: pointer;
-}
-
-
-/* ================= PROGRESS ================= */
-.reward-box {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: #67C090;
-    color: white;
-    border-radius: 0.8rem;
-}
-
-/* ================= BOTTOM ACTIONS ================= */
-.quick-actions-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    margin-top: 2%;
-}
-
-.quick-actions-bottom button {
-    padding: 0.7rem 1.3rem;
+    padding: 0.65rem 1.1rem;
     border-radius: 0.6rem;
     border: none;
     background: #124170;
     color: white;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 0.95rem;
 }
 
-.quick-actions-bottom button:hover {
+.condition-item button:hover {
     background: #26667F;
 }
 
+.secondary-btn {
+    margin-top: 1rem;
+    padding: 0.7rem 1.1rem;
+    border-radius: 0.6rem;
+    border: none;
+    background: #124170;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.95rem;
+}
+
+.secondary-btn:hover {
+    background: #26667F;
+}
+
+.card-section p {
+    margin-bottom: 0.45rem;
+    font-size: 1rem;
+    color: #111;
+}
+
+.reward-box {
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    background: #67C090;
+    color: white;
+    border-radius: 0.8rem;
+}
+
+.reward-box p {
+    color: white;
+    margin-bottom: 0.2rem;
+}
+
 .schedule-item button.active {
-    outline: 2px solid #124170;
-    transform: scale(1.05);
+    outline: 0.15rem solid #124170;
+    transform: scale(1.04);
+}
+
+@media (max-width: 75rem) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 48rem) {
+    .dashboard-container {
+        padding: 1.5rem 1rem 2rem;
+    }
+
+    .welcome h2 {
+        font-size: 2rem;
+    }
+
+    .welcome p {
+        font-size: 1rem;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .schedule-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .schedule-actions {
+        width: 100%;
+    }
+
+    .schedule-item button {
+        flex: 1;
+    }
 }

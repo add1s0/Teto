@@ -4,137 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedGuide - Dashboard</title>
-
+    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="dashboard.css">
+    <script src="navbar.js" defer></script>
+    <script src="footer.js" defer></script>
+    <script src="dashboard.js" defer></script>
 </head>
 
-<body> 
+<body>
 
-<!-- NAVBAR -->
-<nav class="navbar-custom">
-    <div class="logo">
-        <a href="home.html">
-            <img src="logo.png" alt="MedGuide Logo">
-            <span class="med">Med</span><span class="guide">Guide</span>
-        </a>
-    </div>
+    <navbar-section></navbar-section>
 
-    <ul class="nav-links">
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="accessmap.html">AccessMap</a></li>
-        <li><a href="calendar.html">Calendar</a></li>
-        <li><a href="help.html">Help</a></li>
-    </ul>
-</nav>
+    <main class="dashboard-container">
 
-<main class="dashboard-container">
-
-    <!-- WELCOME -->
-    <section class="welcome">
-        <div>
-            <h2>Здравей, Teto 👋</h2>
-            <p>Ето твоето здравно обобщение за днес</p>
-        </div>
-
-        <div class="quick-actions">
-            <button type="button" onclick="window.location.href='addmed.html'">
-                     Добави лекарство
-                </button>
-            <button>Log Symptoms</button>
-        </div>
-    </section>
-
-    <!-- SUMMARY -->
-    <section class="summary-grid">
-        <div class="summary-card">  
-            <h3>Medications Today</h3>
-            <p>3 medications</p>
-        </div>
-
-        <div class="summary-card">
-            <h3>Next Reminder</h3>
-            <p>14:00</p>
-        </div>
-
-        <div class="summary-card">
-            <h3>Tracked Symptoms</h3>
-            <p>2 today</p>
-        </div>
-
-        <div class="summary-card">
-            <h3>Nearby Places</h3>
-            <p>5 locations</p>
-        </div>
-    </section>
-
-    <!-- TODAY SCHEDULE -->
-    <section class="card-section">
-        <h2>Today’s Schedule</h2>
-
-        <div class="schedule-item">
-            <span>08:00 – Aspirin</span>
-            <div>
-                <button class="taken">Taken</button>
-                <button class="missed">Missed</button>
-                <button class="snooze">Snooze</button>
+        <section class="welcome">
+            <div class="welcome-text">
+                <h2>Здравей, Teto 👋</h2>
+                <p>Ето твоето здравно обобщение за днес</p>
             </div>
-        </div>
 
-        <div class="schedule-item">
-            <span>14:00 – Vitamin D</span>
-            <div>
-                <button class="pending">Pending</button>
+            <div class="quick-actions">
+                <button type="button" onclick="window.location.href='addmed.html'">
+                    Добави лекарство
+                </button>
+                <button type="button">Запиши симптоми</button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- MY CONDITIONS -->
-    <section class="card-section">
-        <h2>My Conditions</h2>
+        <section class="summary-grid">
+            <div class="summary-card">
+                <h3>Лекарства днес</h3>
+                <p>3 лекарства</p>
+            </div>
 
-        <div class="condition-item">
-            <h4>Hypertension</h4>
-            <p>Stable • Last updated: Today</p>
-            <button type="button" onclick="window.location.href='mycondition.html'">
-                     Виж подробности
+            <div class="summary-card">
+                <h3>Следващо напомняне</h3>
+                <p>14:00</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Проследени симптоми</h3>
+                <p>2 днес</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Близки места</h3>
+                <p>5 локации</p>
+            </div>
+        </section>
+
+        <section class="card-section">
+            <h2>График за днес</h2>
+
+            <div class="schedule-item">
+                <span>08:00 – Aspirin</span>
+                <div class="schedule-actions">
+                    <button class="taken" type="button">Прието</button>
+                    <button class="missed" type="button">Пропуснато</button>
+                    <button class="snooze" type="button">Отложи</button>
+                </div>
+            </div>
+
+            <div class="schedule-item">
+                <span>14:00 – Vitamin D</span>
+                <div class="schedule-actions">
+                    <button class="pending" type="button">Изчаква</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="card-section">
+            <h2>Моите състояния</h2>
+
+            <div class="condition-item">
+                <h4>Hypertension</h4>
+                <p>Стабилно • Последна актуализация: Днес</p>
+                <button type="button" onclick="window.location.href='mycondition.html'">
+                    Виж подробности
                 </button>
-        </div>
+            </div>
 
-        <div class="condition-item">
-            <h4>Diabetes Type 2</h4>
-            <p>Moderate • Last updated: Yesterday</p>
-            <button type="button" onclick="window.location.href='mycondition.html'">
-                     Виж подробности
+            <div class="condition-item">
+                <h4>Diabetes Type 2</h4>
+                <p>Умерено • Последна актуализация: Вчера</p>
+                <button type="button" onclick="window.location.href='mycondition.html'">
+                    Виж подробности
                 </button>
-        </div>
-    </section>
+            </div>
+        </section>
 
-    <!-- SYMPTOMS -->
-    <section class="card-section">
-        <h2>Symptoms Tracker</h2>
+        <section class="card-section">
+            <h2>Проследяване на симптоми</h2>
 
-        <p>Headache — mild — today 10:30</p>
-        <p>Fatigue — medium — yesterday</p>
+            <p>Главоболие — леко — днес 10:30</p>
+            <p>Умора — средна — вчера</p>
 
-        <button class="secondary-btn">+ Add Symptom</button>
-    </section>
+            <button class="secondary-btn" type="button">+ Добави симптом</button>
+        </section>
 
-    <!-- PROGRESS -->
-    <section class="card-section">
-        <h2>Health Insights</h2>
+        <section class="card-section">
+            <h2>Здравни насоки</h2>
 
-        <p>🔥 Medication streak: 7 days</p>
-        <p>📊 Adherence: 92%</p>
-        <p>✅ Symptoms improved this week</p>
+            <p>🔥 Поредни дни без пропуск: 7</p>
+            <p>📊 Спазване на лечението: 92%</p>
+            <p>✅ Симптомите са подобрени тази седмица</p>
 
-        <div class="reward-box">
-            <p>🎁 Reward unlocked!</p>
-            <p>10% discount at City Pharmacy</p>
-        </div>
-    </section>
+            <div class="reward-box">
+                <p>🎁 Отключена награда!</p>
+                <p>10% отстъпка в City Pharmacy</p>
+            </div>
+        </section>
 
+    </main>
 
-</main>
+    <footer-section></footer-section>
 
 </body>
 </html>
