@@ -1,165 +1,145 @@
-/* =================================================
-   ОСНОВНИ СТИЛОВЕ И ЦЕНТРИРАНЕ
-   ================================================= */
+
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Важно за правилните размери */
+    box-sizing: border-box;
 }
 
+/* ================= BODY ================= */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #DDF4E7; /* Твоят светлозелен фон */
+    font-family: Arial, sans-serif;
+    background-color: #DDF4E7;
+
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
 }
 
+/* ================= MAIN ================= */
 .container {
     width: 100%;
-    max-width: 450px;
+    max-width: 40rem;
+
+    min-height: 100vh;
+
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    justify-content: center;
 }
 
-/* =================================================
-   КАРТИ (CARDS)
-   ================================================= */
+/* ================= CARD ================= */
 .card {
-    background: white;
-    border-radius: 1.2rem;
+    width: 100%;
+    max-width: 32rem;
+
+    margin: 0 auto 1rem auto;
     padding: 2rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    position: relative; /* Нужно за remove-btn */
+
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.08);
+}
+
+/* ================= TITLE ================= */
+.title-card {
+    text-align: center;
 }
 
 .title-card h2 {
-    color: #124170; /* Твоят тъмносин цвят */
-    text-align: center;
-    margin: 0;
+    color: #124170;
+    font-size: 1.8rem;
 }
 
-/* =================================================
-   ГРУПА ЗА ИНПУТ (КЛЮЧЪТ КЪМ ПАДАЩОТО МЕНЮ)
-   ================================================= */
-.input-group {
-    position: relative; /* Прави групата котва за менюто */
-    width: 100%;
-    margin-bottom: 15px;
+/* ================= MEDICINE CARD ================= */
+.medicine-card {
+    position: relative;
 }
 
+/* ================= INPUT ================= */
 input {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    display: block;
-    transition: border-color 0.3s;
+    padding: 0.9rem;
+    margin-bottom: 0.7rem;
+
+    border-radius: 0.6rem;
+    border: 0.1rem solid #ccc;
+
+    font-size: 1rem;
 }
 
+/* FOCUS */
 input:focus {
-    border-color: #67C090; /* Зелен бордюр при писане */
+    outline: none;
+    border-color: #67C090;
 }
 
-/* =================================================
-   ПАДАЩО МЕНЮ (AUTOCOMPLETE)
-   ================================================= */
-.suggestionsList {
-    position: absolute;
-    top: 100%; /* Започва точно под инпута */
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 1px solid #ddd;
-    border-top: none; /* Слива се визуално с инпута */
-    border-radius: 0 0 8px 8px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    z-index: 9999; /* ДА ЗАКРИВА ВСИЧКО ОТДОЛУ */
-    display: none; /* Контролира се от JS */
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-    max-height: 200px;
-    overflow-y: auto;
+/* ================= TIME INPUT ================= */
+.time-container input {
+    margin-top: 0.5rem;
 }
 
-.suggestion-item {
-    padding: 12px 15px;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-    color: #333;
-}
-
-.suggestion-item:last-child {
-    border-bottom: none;
-}
-
-.suggestion-item:hover {
-    background-color: #f0f7ff;
-    color: #124170;
-}
-
-/* =================================================
-   БУТОНИ
-   ================================================= */
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#addMedicineBtn {
-    background-color: #67C090;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-}
-
-.submit-btn {
-    background-color: #124170;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    width: 100%;
-}
-
+/* ================= REMOVE BUTTON ================= */
 .remove-btn {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: 0.8rem;
+    right: 0.8rem;
+
+    width: 1.8rem;
+    height: 1.8rem;
+
+    border-radius: 50%;
+    border: none;
+
     background: #ff6b6b;
     color: white;
-    border: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
+
+    font-size: 1rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* Контейнер за часовете */
-.time-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
+/* ================= BUTTON GROUP ================= */
+.button-group {
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 auto;
 }
 
-.time-container input {
-    width: calc(50% - 4px); /* Две полета на ред */
+/* ================= ADD BUTTON ================= */
+#addMedicineBtn {
+    width: 100%;
+    padding: 0.9rem;
+    margin-bottom: 1rem;
+
+    background: #67C090;
+    color: white;
+
+    border: none;
+    border-radius: 0.6rem;
+
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* ================= SUBMIT BUTTON ================= */
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+
+    background: #124170;
+    color: white;
+
+    border: none;
+    border-radius: 0.6rem;
+
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* ================= HOVER ================= */
+#addMedicineBtn:hover {
+    opacity: 0.9;
+}
+
+.submit-btn:hover {
+    background: #26667F;
 }
