@@ -1,0 +1,149 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BODY */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #DDF4E7;
+    height: 100vh;
+}
+
+/* CENTER CONTAINER */
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CARD */
+.card {
+    width: 96%;
+    max-width: 34rem;
+    background: white;
+
+    padding: 10% 10% 8% 10%; /* повече отгоре */
+
+    border-radius: 1.2rem;
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+
+/* TITLE */
+h2{
+    color: #124170;
+    font-size: 3rem;
+    margin-bottom: 15%;
+    margin-top: -30%;
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 5%;      /* увеличава височината */
+    margin-bottom: 6%;
+    border: 0.1rem solid #ccc;
+    border-radius: 0.7rem;
+    font-size: 1rem;
+}
+
+/* FOCUS */
+input:focus {
+    outline: none;
+    border-color: #67C090;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 4%;
+    background-color: #124170;
+    color: white;
+    border: none;
+    border-radius: 0.6rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* HOVER */
+button:hover {
+    background-color: #26667F;
+}
+
+/* REGISTER TEXT */
+.register-text {
+    margin-top: 6%;
+    font-size: 0.9rem;
+}
+
+/* LINK */
+a {
+    color: #67C090;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+form {
+    margin-top: 5%;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 1% 4%;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+}
+
+/* Лого */
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 5vh;
+    margin-right: 0.5rem;
+}
+
+/* Цветове */
+.logo .med {
+    color: #124170;
+}
+
+.logo .guide {
+    color: #67C090;
+}
+
+/* Навигация */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #124170;
+    padding: 0.4em 1em;
+    border-radius: 0.6rem;
+    transition: 0.3s;
+    white-space: nowrap;
+}

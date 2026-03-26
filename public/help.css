@@ -1,0 +1,156 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================= BODY ================= */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #DDF4E7;
+}
+
+/* ================= NAVBAR ================= */
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: white;
+    padding: 1% 4%;
+
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+}
+
+/* LOGO */
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.logo img {
+    height: 5vh;
+    margin-right: 0.5rem;
+}
+
+.logo .med {
+    color: #124170;
+}
+
+.logo .guide {
+    color: #67C090;
+}
+
+/* NAV LINKS */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #124170;
+    padding: 0.4em 1em;
+    border-radius: 0.6rem;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: #67C090;
+    color: white;
+}
+
+/* ================= CONTAINER ================= */
+.dashboard-container {
+    padding: 3%;
+}
+
+/* ================= HEADER ================= */
+.welcome h2 {
+    color: #124170;
+    font-size: 2rem;
+}
+
+.welcome p {
+    color: #26667F;
+    margin-top: 0.3rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ================= CARDS ================= */
+.card-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 2%;
+    box-shadow: 0 0.6rem 1.5rem rgba(0,0,0,0.05);
+}
+
+.card-section h2 {
+    color: #124170;
+    margin-bottom: 1rem;
+}
+
+/* ================= TEXT ================= */
+.card-section p {
+    color: #26667F;
+    margin-bottom: 0.6rem;
+    line-height: 1.4;
+}
+
+/* ================= FAQ ================= */
+.faq-item {
+    margin-bottom: 1rem;
+}
+
+.faq-item h4 {
+    color: #124170;
+    margin-bottom: 0.3rem;
+}
+
+.faq-item p {
+    color: #26667F;
+}
+
+/* ================= FORM ================= */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+
+    border-radius: 0.6rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+/* FOCUS */
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #67C090;
+}
+
+/* BUTTON */
+.primary-btn {
+    width: 100%;
+    padding: 0.9rem;
+
+    background-color: #124170;
+    color: white;
+
+    border: none;
+    border-radius: 0.6rem;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    background-color: #26667F;
+}
