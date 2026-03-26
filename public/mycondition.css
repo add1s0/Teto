@@ -1,20 +1,6 @@
-:root {
-    --bg-color: #DDF4E7;
-    --green: #67C090;
-    --secondary: #26667F;
-    --primary: #124170;
-    --primary-color: var(--primary);
-    --accent-green: var(--green);
-}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
-    font-family: Arial, sans-serif;
     background: url("backgroundMC.png") no-repeat center center;
     background-size: cover;
     background-attachment: fixed;

@@ -1,21 +1,6 @@
-:root {
-    --bg-color: #DDF4E7;
-    --green: #67C090;
-    --secondary: #26667F;
-    --primary: #124170;
 
-    --primary-color: var(--primary);
-    --accent-green: var(--green);
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 body {
-    font-family: Arial, sans-serif;
     background: url("images/bg.jpg") no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
@@ -24,24 +9,6 @@ body {
     position: relative;
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(221, 244, 231, 0.88);
-    z-index: -1;
-}
-
-p {
-    line-height: 1.7;
-    margin-top: 6px;
-}
-
-h1, h2, h3 {
-    line-height: 1.3;
-    margin-bottom: 10px;
-    color: var(--primary);
-}
 
 /* NAVBAR */
 

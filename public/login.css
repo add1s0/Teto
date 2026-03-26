@@ -1,16 +1,4 @@
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-/* BODY */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #DDF4E7;
-    height: 100vh;
-}
 
 /* CENTER CONTAINER */
 .container {
