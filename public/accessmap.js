@@ -1,206 +1,111 @@
-const places = [
-    {
-        name: "City Hospital",
-        type: "hospital",
-        description: "Голяма многопрофилна болница с 24/7 спешно отделение.",
-        address: "бул. Витоша 25, София",
-        phone: "+35921234567",
-        email: "contact@cityhospital.bg",
-        lat: 42.6977,
-        lng: 23.3219
-    },
-    {
-        name: "Green Pharmacy",
-        type: "pharmacy",
-        description: "Аптека с лекарства, консултации и бързо обслужване.",
-        address: "ул. Алабин 14, София",
-        phone: "+35922345678",
-        email: "info@greenpharmacy.bg",
-        lat: 42.6992,
-        lng: 23.3255
-    },
-    {
-        name: "Central Medical Center",
-        type: "hospital",
-        description: "Медицински център с лаборатория и специалисти.",
-        address: "бул. България 102, София",
-        phone: "+35923456789",
-        email: "office@centralmedical.bg",
-        lat: 42.6945,
-        lng: 23.3180
-    },
-    {
-        name: "HealthPlus Pharmacy",
-        type: "pharmacy",
-        description: "Аптека с денонощен достъп и здравни продукти.",
-        address: "ул. Граф Игнатиев 33, София",
-        phone: "+35924567890",
-        email: "support@healthplus.bg",
-        lat: 42.7010,
-        lng: 23.3172
-    }
-];
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('medications-container');
+    const addBtn = document.getElementById('addMedicineBtn');
+    const form = document.getElementById('medicineForm');
 
-const map = L.map("map").setView([42.6977, 23.3219], 14);
+    // 1. ТАЗИ ФУНКЦИЯ ПРАВИ МАГИЯТА
+    function setupAutocomplete(card) {
+        // Търсим елементите по КЛАС, а не по ID, за да работи във всяка карта
+        const input = card.querySelector('.medInput');
+        const list = card.querySelector('.suggestionsList');
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "&copy; OpenStreetMap contributors"
-}).addTo(map);
+        if (!input || !list) {
+            console.error("Липсват .medInput или .suggestionsList в картата!");
+            return;
+        }
 
-let markers = [];
-let userMarker = null;
-let userLocation = null;
-
-/* Разстояние между две точки в km */
-function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    const R = 6371;
-    const dLat = deg2rad(lat2 - lat1);
-    const dLon = deg2rad(lon2 - lon1);
-
-    const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-}
-
-function deg2rad(deg) {
-    return deg * (Math.PI / 180);
-}
-
-function getActiveFilter() {
-    const activeBtn = document.querySelector(".filter-btn.active");
-    return activeBtn ? activeBtn.getAttribute("data-type") : "all";
-}
-
-function clearMarkers() {
-    markers.forEach(marker => map.removeLayer(marker));
-    markers = [];
-}
-
-function renderPlaces(type = "all") {
-    const placesList = document.getElementById("placesList");
-    placesList.innerHTML = "";
-
-    clearMarkers();
-
-    let filteredPlaces =
-        type === "all"
-            ? [...places]
-            : places.filter(place => place.type === type);
-
-    if (userLocation) {
-        filteredPlaces = filteredPlaces.map(place => {
-            const distance = getDistanceFromLatLonInKm(
-                userLocation.lat,
-                userLocation.lng,
-                place.lat,
-                place.lng
-            );
-
-            return { ...place, distance };
-        });
-
-        filteredPlaces.sort((a, b) => a.distance - b.distance);
-    }
-
-    filteredPlaces.forEach(place => {
-        const popupContent = `
-            <div class="popup-box">
-                <b>${place.name}</b><br>
-                ${place.description}<br><br>
-                <strong>Адрес:</strong> ${place.address}<br>
-                <strong>Тел:</strong> <a href="tel:${place.phone}">${place.phone}</a><br>
-                <strong>Email:</strong> <a href="mailto:${place.email}">${place.email}</a><br>
-                ${place.distance ? `<strong>Разстояние:</strong> ${place.distance.toFixed(2)} km` : ""}
-            </div>
-        `;
-
-        const marker = L.marker([place.lat, place.lng])
-            .addTo(map)
-            .bindPopup(popupContent);
-
-        markers.push(marker);
-
-        const card = document.createElement("div");
-        card.classList.add("place-card");
-
-        card.innerHTML = `
-            <h3>${place.name}</h3>
-            <p>${place.description}</p>
-            <p><strong>Адрес:</strong> ${place.address}</p>
-            <p><strong>Телефон:</strong> <a href="tel:${place.phone}">${place.phone}</a></p>
-            <p><strong>Email:</strong> <a href="mailto:${place.email}">${place.email}</a></p>
-            ${place.distance ? `<p><strong>Разстояние:</strong> ${place.distance.toFixed(2)} km</p>` : ""}
-
-            <div class="contact-buttons">
-                <a href="tel:${place.phone}" class="contact-btn call-btn">Call</a>
-                <a href="mailto:${place.email}" class="contact-btn email-btn">Email</a>
-            </div>
-
-            <span class="place-type ${place.type}">
-                ${place.type === "hospital" ? "Болница" : "Аптека"}
-            </span>
-        `;
-
-        placesList.appendChild(card);
-    });
-}
-
-function getUserLocation() {
-    if (!navigator.geolocation) {
-        alert("Браузърът не поддържа геолокация.");
-        renderPlaces();
-        return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            userLocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-
-            if (userMarker) {
-                map.removeLayer(userMarker);
+        input.addEventListener('input', async () => {
+            const val = input.value.trim();
+            
+            if (val.length < 2) {
+                list.style.display = 'none';
+                return;
             }
 
-            userMarker = L.marker([userLocation.lat, userLocation.lng])
-                .addTo(map)
-                .bindPopup("Your location")
-                .openPopup();
+            try {
+                // Пътят до твоя API за търсене
+                const res = await fetch(`/meds/search?term=${encodeURIComponent(val)}`);
+                const medicines = await res.json();
 
-            map.setView([userLocation.lat, userLocation.lng], 14);
+                if (medicines.length > 0) {
+                    // Генерираме съдържанието на менюто
+                    list.innerHTML = medicines.map(m => `
+                        <li class="suggestion-item" style="padding: 10px; cursor: pointer; border-bottom: 1px solid #eee;">${m.name}</li>
+                    `).join('');
+                    
+                    // СИЛОВО ПОКАЗВАМЕ МЕНЮТО
+                    list.style.display = 'block'; 
+                    list.style.opacity = '1';
+                    list.style.visibility = 'visible';
+                } else {
+                    list.style.display = 'none';
+                }
+            } catch (err) {
+                console.error('Грешка при връзка със сървъра:', err);
+            }
+        });
 
-            renderPlaces(getActiveFilter());
-        },
-        (error) => {
-            console.log("Location error:", error);
-            alert("Не успяхме да вземем локацията ти. Показваме стандартната карта.");
-            renderPlaces();
-        },
-        {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
-        }
-    );
-}
+        // Избор от менюто
+        list.addEventListener('click', (e) => {
+            if (e.target.classList.contains('suggestion-item')) {
+                input.value = e.target.innerText;
+                list.style.display = 'none';
+            }
+        });
 
-const filterButtons = document.querySelectorAll(".filter-btn");
+        // Затваряне при клик извън картата
+        document.addEventListener('click', (e) => {
+            if (!card.contains(e.target)) {
+                list.style.display = 'none';
+            }
+        });
+    }
 
-filterButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        filterButtons.forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
+    // 2. ГЕНЕРИРАНЕ НА НОВА КАРТА (за бутона +)
+    function createMedicineCard() {
+        const card = document.createElement('div');
+        card.className = 'card medicine-card';
+        card.innerHTML = `
+            <button type="button" class="remove-btn">✕</button>
+            <div class="input-group" style="position: relative;">
+                <input type="text" class="medInput" name="name" placeholder="Име на лекарството" autocomplete="off" required>
+                <ul class="suggestionsList" style="display: none; position: absolute; width: 100%; background: white; z-index: 1000; border: 1px solid #ddd; list-style: none; padding: 0;"></ul>
+            </div>
+            <div class="input-group">
+                <input type="number" name="dose" class="doseInput" placeholder="Дневна доза" min="1" required>
+            </div>
+            <div class="time-container"></div>
+        `;
 
-        const type = button.getAttribute("data-type");
-        renderPlaces(type);
-    });
+        card.querySelector('.remove-btn').onclick = () => card.remove();
+        
+        // Часове според дозата
+        card.querySelector('.doseInput').oninput = (e) => {
+            const tContainer = card.querySelector('.time-container');
+            tContainer.innerHTML = '';
+            for (let i = 0; i < Math.min(e.target.value, 12); i++) {
+                const t = document.createElement('input');
+                t.type = 'time';
+                t.required = true;
+                t.style.display = 'block';
+                t.style.marginTop = '5px';
+                tContainer.appendChild(t);
+            }
+        };
+
+        setupAutocomplete(card);
+        return card;
+    }
+
+    // 3. ПУСКАМЕ ГО ЗА ПЪРВОНАЧАЛНАТА КАРТА
+    const initialCard = document.querySelector('.medicine-card');
+    if (initialCard) {
+        setupAutocomplete(initialCard);
+        // Добави ръчно логиката за часове на първата карта тук, ако я нямаш
+    }
+
+    // БУТОН ЗА ДОБАВЯНЕ
+    if (addBtn) {
+        addBtn.onclick = () => container.appendChild(createMedicineCard());
+    }
 });
-
-getUserLocation();
