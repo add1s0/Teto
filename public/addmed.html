@@ -3,54 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedGuide - Sign In</title>
+    <title>Add Medicine</title>
 
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="addmed.css">
 </head>
 
 <body>
-    
 
-    <!-- NAVBAR -->
-    <nav class="navbar-custom">
-        <div class="logo">
-            <a href="home.html">
-                <img src="logo.png" alt="MedGuide Logo">
-                <span class="med">Med</span><span class="guide">Guide</span>
-            </a>
-        </div>
+<main class="container">
 
-        <ul class="nav-links">
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="accessmap.html">AccessMap</a></li>
-            <li><a href="calendar.html">Calendar</a></li>
-            <li><a href="help.html">Help</a></li>
-        </ul>
-    </nav>
+    <!-- TITLE -->
+    <div class="card title-card">
+        <h2>Добавяне на лекарствa</h2>
+    </div>
 
-    <main class="container">
+    <!-- FORM -->
+    <form id="medicineForm">
 
-    <main class="container">
+        <div id="medications-container">
 
-        <div class="card">
+            <!-- FIRST CARD -->
+            <div class="card medicine-card">
 
-            <h2>Log In</h2>
+                <button type="button" class="remove-btn">✕</button>
 
-            <form>
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
+                <input type="text" name="name" placeholder="Име на лекарството" required>
 
-                <button type="submit">Log in</button>
-            </form>
+                <input type="number" name="dose" placeholder="Дневна доза" min="1" required>
 
-            <p class="register-text">
-                Don't have un account?
-                <a href=signin.html>Sign in</a>
-            </p>
+                <div class="time-container"></div>
+
+            </div>
 
         </div>
 
-    </main>
+        <div class="button-group">
+        <button type="button" id="addMedicineBtn">+ Добави още</button>
+        <button type="submit" class="submit-btn">Добави лекарствата</button>
+        </div>
+
+    </form>
+
+</main>
+
+<script src="addmed.js"></script>
 
 </body>
 </html>

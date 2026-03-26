@@ -1,55 +1,68 @@
-/* RESET */
+/* ================= RESET ================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* BODY */
+/* ================= BODY ================= */
 body {
     font-family: Arial, sans-serif;
     background-color: #DDF4E7;
-    height: 100vh;
-}
 
-/* CENTER CONTAINER */
-.container {
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-/* CARD */
+/* ================= MAIN ================= */
+.container {
+    width: 100%;
+    max-width: 40rem;
+
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ================= CARD ================= */
 .card {
-    width: 96%;
-    max-width: 34rem;
+    width: 100%;
+    max-width: 32rem;
+
+    margin: 0 auto 1rem auto;
+    padding: 2rem;
+
     background: white;
-
-    padding: 10% 10% 8% 10%; /* повече отгоре */
-
-    border-radius: 1.2rem;
+    border-radius: 1rem;
     box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.08);
+}
+
+/* ================= TITLE ================= */
+.title-card {
     text-align: center;
 }
 
-
-/* TITLE */
-h2{
+.title-card h2 {
     color: #124170;
-    font-size: 3rem;
-    margin-bottom: 15%;
-    margin-top: -30%;
+    font-size: 1.8rem;
 }
 
-/* INPUTS */
+/* ================= MEDICINE CARD ================= */
+.medicine-card {
+    position: relative;
+}
+
+/* ================= INPUT ================= */
 input {
     width: 100%;
-    padding: 5%;      /* увеличава височината */
-    margin-bottom: 6%;
+    padding: 0.9rem;
+    margin-bottom: 0.7rem;
+
+    border-radius: 0.6rem;
     border: 0.1rem solid #ccc;
-    border-radius: 0.7rem;
+
     font-size: 1rem;
 }
 
@@ -59,91 +72,73 @@ input:focus {
     border-color: #67C090;
 }
 
-/* BUTTON */
-button {
-    width: 100%;
-    padding: 4%;
-    background-color: #124170;
-    color: white;
+/* ================= TIME INPUT ================= */
+.time-container input {
+    margin-top: 0.5rem;
+}
+
+/* ================= REMOVE BUTTON ================= */
+.remove-btn {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+
+    width: 1.8rem;
+    height: 1.8rem;
+
+    border-radius: 50%;
     border: none;
-    border-radius: 0.6rem;
+
+    background: #ff6b6b;
+    color: white;
+
     font-size: 1rem;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-/* HOVER */
-button:hover {
-    background-color: #26667F;
+/* ================= BUTTON GROUP ================= */
+.button-group {
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 auto;
 }
 
-/* REGISTER TEXT */
-.register-text {
-    margin-top: 6%;
-    font-size: 0.9rem;
-}
+/* ================= ADD BUTTON ================= */
+#addMedicineBtn {
+    width: 100%;
+    padding: 0.9rem;
+    margin-bottom: 1rem;
 
-/* LINK */
-a {
-    color: #67C090;
-    text-decoration: none;
-    font-weight: bold;
-}
+    background: #67C090;
+    color: white;
 
-a:hover {
-    text-decoration: underline;
-}
-
-form {
-    margin-top: 5%;
-}
-
-/* ================= NAVBAR ================= */
-
-.navbar-custom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    padding: 1% 4%;
-    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
-}
-
-/* Лого */
-.logo a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-.logo img {
-    height: 5vh;
-    margin-right: 0.5rem;
-}
-
-/* Цветове */
-.logo .med {
-    color: #124170;
-}
-
-.logo .guide {
-    color: #67C090;
-}
-
-/* Навигация */
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #124170;
-    padding: 0.4em 1em;
+    border: none;
     border-radius: 0.6rem;
-    transition: 0.3s;
-    white-space: nowrap;
+
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* ================= SUBMIT BUTTON ================= */
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+
+    background: #124170;
+    color: white;
+
+    border: none;
+    border-radius: 0.6rem;
+
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* ================= HOVER ================= */
+#addMedicineBtn:hover {
+    opacity: 0.9;
+}
+
+.submit-btn:hover {
+    background: #26667F;
 }
