@@ -18,7 +18,11 @@ body {
 
 /* Hero Section */
 .hero {
-    background-color: var(--bg-color); /* махаме снимката */
+    background: 
+        linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)),
+        url("public/backgroundHome.png.png") no-repeat center center;
+    background-size: cover;
+
     height: 90vh;
     display: flex;
     justify-content: center;
