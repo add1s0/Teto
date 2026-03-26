@@ -8,9 +8,9 @@ const medInfo = document.getElementById("medInfo");
 // 1. Генератор на ръководство
 generateGuideBtn.addEventListener("click", async () => {
     const condition = conditionInput.value.trim();
-    if (!condition) return alert("Въведете състояние");
+    if (!condition) return alert("Моля, въведете състояние.");
 
-    generateGuideBtn.textContent = "Мисли...";
+    generateGuideBtn.textContent = "MedGuide мисли...";
     generateGuideBtn.disabled = true;
 
     try {
@@ -19,14 +19,20 @@ generateGuideBtn.addEventListener("click", async () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ condition })
         });
+
+        if (!res.ok) throw new Error("Сървърна грешка");
+
         const data = await res.json();
         
-        bodyInfo.textContent = data.bodyInfo;
-        expectInfo.textContent = data.expectInfo;
-        doctorInfo.textContent = data.doctorInfo;
-        medInfo.textContent = data.medInfo;
+        // Попълване на картите с отговорите от AI
+        bodyInfo.textContent = data.bodyInfo || "Няма информация.";
+        expectInfo.textContent = data.expectInfo || "Няма информация.";
+        doctorInfo.textContent = data.doctorInfo || "Няма информация.";
+        medInfo.textContent = data.medInfo || "Няма информация.";
+
     } catch (err) {
-        alert("Грешка при връзката с AI.");
+        console.error(err);
+        alert("Грешка при връзката с AI. Проверете конзолата на сървъра.");
     } finally {
         generateGuideBtn.textContent = "Generate Guide";
         generateGuideBtn.disabled = false;
@@ -59,9 +65,10 @@ sendBtn.addEventListener("click", async () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: msg })
         });
+
         const data = await res.json();
         addMessage(data.reply, "bot");
     } catch (err) {
-        addMessage("Грешка при чатбота.", "bot");
+        addMessage("Грешка при свързване с AI чата.", "bot");
     }
 });

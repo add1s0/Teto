@@ -1,6 +1,11 @@
-require('dotenv').config(); // ЗАДЪЛЖИТЕЛНО НА ПЪРВИ РЕД
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
+
+// Проверка дали базата съществува преди зареждане
+const dbPath = path.join(__dirname, 'config', 'db.js');
+console.log('🔍 Опит за зареждане на БД от:', dbPath);
+
 const sequelize = require('./config/db');
 
 // 1. Внос на моделите
@@ -12,7 +17,7 @@ const MedicineReference = require('./models/MedicineReference');
 // 2. Внос на маршрутите
 const authRoutes = require('./routes/auth');
 const aiRoutes = require('./routes/ai');
-const medsRoutes = require('./routes/meds'); // Добавено за MedRemind
+const medsRoutes = require('./routes/meds');
 
 const app = express();
 
@@ -21,34 +26,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 3. ДЕФИНИРАНЕ НА ВРЪЗКИ (Associations) - КРИТИЧНО ЗА DB ADMIN!
-// Потребител -> Лекарства
+// 3. Връзки между таблиците
 User.hasMany(Medication, { foreignKey: 'userId', onDelete: 'CASCADE' });
 Medication.belongsTo(User, { foreignKey: 'userId' });
 
-// Потребител -> Събития (MyCondition)
 User.hasMany(Event, { foreignKey: 'userId', onDelete: 'CASCADE' });
 Event.belongsTo(User, { foreignKey: 'userId' });
 
-// 4. Регистрация на маршрути
+// 4. Маршрути
 app.use('/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/meds', medsRoutes);
 
-// Главна страница
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
 
 const PORT = process.env.PORT || 3000;
 
-// 5. Синхронизация и старт
-sequelize.sync({ alter: true }) 
+// Синхронизация и старт
+sequelize.sync({ alter: true })
     .then(() => {
-        console.log('✅ Database synced & Tables updated');
-        console.log('🔑 AI Key status:', process.env.OPENAI_API_KEY ? "Loaded" : "MISSING");
+        console.log('✨ Връзката с PostgreSQL е бетон!');
         app.listen(PORT, () => {
-            console.log(`🚀 Server running: http://localhost:${PORT}`);
+            console.log(`🚀 Сървърът работи на http://localhost:${PORT}`);
         });
     })
-    .catch(err => console.error('❌ Connection error:', err));
+    .catch(err => {
+        console.error('❌ ГРЕШКА ПРИ СТАРТ:', err.message);
+    });

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { OpenAI } = require('openai');
+const Groq = require('groq-sdk');
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+const groq = new Groq({
+    apiKey: process.env.GROQ_API_KEY
 });
 
 // Маршрут за "Generate Guide"
@@ -12,41 +12,47 @@ router.post('/generate-guide', async (req, res) => {
     if (!condition) return res.status(400).json({ error: "Въведете състояние" });
 
     try {
-        const prompt = `Дай медицинска информация за: ${condition}. 
-        Върни отговора САМО като JSON обект с ключове: 
+        const prompt = `Ти си медицински асистент. Дай информация за: ${condition}. 
+        Върни отговора САМО като JSON обект със следните ключове на български: 
         "bodyInfo" (какво става в тялото), 
         "expectInfo" (симптоми), 
         "doctorInfo" (въпроси към лекар), 
-        "medInfo" (значение на лекарствата). 
-        Език: Български.`;
+        "medInfo" (значение на лекарствата).`;
 
-        const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
-            messages: [{ role: "user", content: prompt }],
+        const chatCompletion = await groq.chat.completions.create({
+            messages: [
+                { role: "system", content: "Връщай само чист JSON формат." },
+                { role: "user", content: prompt }
+            ],
+            model: "llama-3.3-70b-versatile",
             response_format: { type: "json_object" }
         });
 
-        res.json(JSON.parse(completion.choices[0].message.content));
+        const aiResponse = JSON.parse(chatCompletion.choices[0].message.content);
+        res.json(aiResponse);
+
     } catch (error) {
-        console.error("AI Guide Error:", error);
-        res.status(500).json({ error: "Грешка при AI генерирането" });
+        console.error("Groq Guide Error:", error);
+        res.status(500).json({ error: "Грешка при генерирането с Groq" });
     }
 });
 
-// Маршрут за "Ask AI" Chat
+// Маршрут за Chat
 router.post('/chat', async (req, res) => {
     const { message } = req.body;
     try {
-        const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
+        const chatCompletion = await groq.chat.completions.create({
             messages: [
-                { role: "system", content: "Ти си MedGuide AI асистент. Отговаряй кратко и точно на български." },
+                { role: "system", content: "Ти си MedGuide - любезен медицински асистент. Отговаряй на български." },
                 { role: "user", content: message }
-            ]
+            ],
+            model: "llama-3.3-70b-versatile"
         });
-        res.json({ reply: completion.choices[0].message.content });
+
+        res.json({ reply: chatCompletion.choices[0].message.content });
     } catch (error) {
-        res.status(500).json({ error: "Грешка при чат" });
+        console.error("Groq Chat Error:", error);
+        res.status(500).json({ error: "Грешка в чата" });
     }
 });
 

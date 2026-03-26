@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
+
 const Medication = sequelize.define('Medication', {
     name: { type: DataTypes.STRING, allowNull: false },
     dosage: { type: DataTypes.STRING },
