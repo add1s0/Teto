@@ -18,17 +18,11 @@ body {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(18,65,112,0.75), rgba(18,65,112,0.75)),
-                url('https://via.placeholder.com/1500x600') no-repeat center center;
-    background-size: cover;
-    color: var(--text-light);
+    background-color: var(--bg-color); /* махаме снимката */
     height: 90vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 0 10%;
 }
 
 .hero h1 {
@@ -72,6 +66,51 @@ body {
 .hero .btn-outline-light:hover {
     background-color: var(--text-light);
     color: var(--primary-color);
+}
+
+.hero-box {
+    background-color: white;
+    padding: 3rem 4rem;
+    border-radius: 1.2rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* центрира хоризонтално */
+    justify-content: center;
+
+    text-align: center;    /* центрира текста */
+    
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.08);
+    max-width: 600px;
+}
+
+/* текст */
+.hero-box h1 {
+    color: var(--primary-color);
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+.hero-box p {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* бутони */
+.hero-box .btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+}
+
+.hero-box .btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.hero-box .btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
 }
 
 /* Основни секции - кутийки */
