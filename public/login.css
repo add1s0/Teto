@@ -1,56 +1,47 @@
-
-
-/* CENTER CONTAINER */
 .container {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
 }
 
-/* CARD */
 .card {
-    width: 96%;
+    width: 100%;
     max-width: 34rem;
     background: white;
-
-    padding: 10% 10% 8% 10%; /* повече отгоре */
-
+    padding: 3rem 3rem 2.5rem 3rem;
     border-radius: 1.2rem;
     box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.08);
     text-align: center;
 }
 
-
-/* TITLE */
-h2{
+h2 {
     color: #124170;
     font-size: 3rem;
-    margin-bottom: 15%;
-    margin-top: -30%;
+    margin-bottom: 2rem;
+    margin-top: 0;
 }
 
-/* INPUTS */
 input {
     width: 100%;
-    padding: 5%;      /* увеличава височината */
-    margin-bottom: 6%;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
     border: 0.1rem solid #ccc;
     border-radius: 0.7rem;
     font-size: 1rem;
+    box-sizing: border-box;
 }
 
-/* FOCUS */
 input:focus {
     outline: none;
     border-color: #67C090;
 }
 
-/* BUTTON */
 button {
     width: 100%;
-    padding: 4%;
+    padding: 1rem;
     background-color: #124170;
     color: white;
     border: none;
@@ -60,18 +51,15 @@ button {
     transition: 0.3s;
 }
 
-/* HOVER */
 button:hover {
     background-color: #26667F;
 }
 
-/* REGISTER TEXT */
 .register-text {
-    margin-top: 6%;
+    margin-top: 1.5rem;
     font-size: 0.9rem;
 }
 
-/* LINK */
 a {
     color: #67C090;
     text-decoration: none;
@@ -83,21 +71,18 @@ a:hover {
 }
 
 form {
-    margin-top: 5%;
+    margin-top: 1.25rem;
 }
-
-/* ================= NAVBAR ================= */
 
 .navbar-custom {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    padding: 1% 4%;
+    padding: 0.625rem 2.5rem;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
 }
 
-/* Лого */
 .logo a {
     display: flex;
     align-items: center;
@@ -111,7 +96,6 @@ form {
     margin-right: 0.5rem;
 }
 
-/* Цветове */
 .logo .med {
     color: #124170;
 }
@@ -120,7 +104,6 @@ form {
     color: #67C090;
 }
 
-/* Навигация */
 .nav-links {
     list-style: none;
     display: flex;
@@ -134,4 +117,9 @@ form {
     border-radius: 0.6rem;
     transition: 0.3s;
     white-space: nowrap;
+}
+
+.nav-links a:hover {
+    background-color: #67C090;
+    color: white;
 }
