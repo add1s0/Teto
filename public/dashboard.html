@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedGuide - Dashboard</title>
+
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="dashboard.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    
+
     <script src="navbar.js" defer></script>
     <script src="footer.js" defer></script>
-    <script src="dashboard.js" defer></script>
+    <script src="dashBoardTodayPills.js" defer></script>
 </head>
 
 <body>
-
     <navbar-section></navbar-section>
 
     <main class="dashboard-container">
-
         <section class="welcome">
             <div class="welcome-text">
                 <h2>Здравей, <span id="userName">потребител</span> 👋</h2>
@@ -26,8 +25,12 @@
             </div>
 
             <div class="quick-actions">
-                <button class="btn-primary" type="button" onclick="window.location.href='addmed.html'">Добави лекарство</button>
-                <button class="btn-secondary" type="button" onclick="window.location.href='symptoms.html'">Добави симптоми</button>
+                <button class="btn-primary" type="button" onclick="window.location.href='addmed.html'">
+                    Добави лекарство
+                </button>
+                <button class="btn-secondary" type="button" onclick="window.location.href='symptoms.html'">
+                    Добави симптоми
+                </button>
             </div>
         </section>
 
@@ -64,12 +67,12 @@
         </section>
 
         <div class="dashboard-content-layout">
-            
             <section class="card-section schedule-container">
                 <div class="section-header">
                     <h2>График за днес</h2>
                     <span class="date-display" id="current-date-display"></span>
                 </div>
+
                 <div id="daily-schedule" class="schedule-list">
                     <p class="loading-msg">Зареждане на графика...</p>
                 </div>
@@ -77,13 +80,19 @@
 
             <aside class="sidebar-section">
                 <div class="sidebar-inner">
-                    
                     <section class="card-section symptoms-mini">
                         <h2>Последни симптоми</h2>
+
                         <div id="recent-symptoms" class="symptoms-history">
                             <p class="loading-msg">Зареждане...</p>
                         </div>
-                        <button class="secondary-btn" style="margin-top: 1rem; width: 100%; padding: 0.8rem; border-radius: 0.8rem; border: 1px solid #124170; background: transparent; color: #124170; font-weight: bold; cursor: pointer;" type="button" onclick="window.location.href='symptoms.html'">
+
+                        <button
+                            class="secondary-btn"
+                            type="button"
+                            style="margin-top: 1rem; width: 100%; padding: 0.8rem; border-radius: 0.8rem; border: 1px solid #124170; background: transparent; color: #124170; font-weight: bold; cursor: pointer;"
+                            onclick="window.location.href='symptoms.html'"
+                        >
                             + Добави симптом
                         </button>
                     </section>
@@ -93,25 +102,26 @@
                             <span class="reward-emoji">🏆</span>
                             <h3>Твоят прогрес</h3>
                         </div>
+
                         <p>Придържане към плана</p>
+
                         <div class="progress-track">
                             <div class="progress-fill" id="progress-bar-fill" style="width: 0%"></div>
                         </div>
+
                         <p class="progress-stat" id="progress-text">0% завършени</p>
                     </section>
-
                 </div>
             </aside>
         </div>
-
     </main>
 
     <footer-section></footer-section>
 
     <script>
         const options = { day: 'numeric', month: 'long', year: 'numeric' };
-        document.getElementById('current-date-display').textContent = new Date().toLocaleDateString('bg-BG', options);
+        document.getElementById('current-date-display').textContent =
+            new Date().toLocaleDateString('bg-BG', options);
     </script>
-
 </body>
 </html>
