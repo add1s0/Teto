@@ -3,60 +3,49 @@ const sequelize = require('../config/db');
 
 /**
  * Модел Medication
- * Съхранява информация за лекарствата, графика на прием и контактите за известяване.
+ * Съхранява информация за лекарствата и графика на прием.
+ * Имейлите се взимат от User таблицата.
  */
 const Medication = sequelize.define('Medication', {
-    // ID на потребителя, за връзка с User таблицата
+    // ID на потребителя, връзка към User таблицата
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
 
-    // Имейл на потребителя, на който ще се праща първото напомняне
-    userEmail: { 
-        type: DataTypes.STRING, 
-        allowNull: false,
-        validate: {
-            isEmail: true
-        }
-    },
-
-    // Имейл на близък човек, ако потребителят не отбележи, че е взел хапчето
-    emergencyEmail: { 
-        type: DataTypes.STRING, 
-        allowNull: false,
-        validate: {
-            isEmail: true
-        }
-    },
-
     // Име на лекарството
-    name: { 
-        type: DataTypes.STRING, 
-        allowNull: false 
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
 
-    // Количество
-    dosage: { 
+    // Количество / доза
+    dosage: {
         type: DataTypes.STRING,
-        allowNull: true 
+        allowNull: true
     },
 
     // Час на прием
-    time: { 
-        type: DataTypes.TIME, 
-        allowNull: false 
+    time: {
+        type: DataTypes.TIME,
+        allowNull: false
     },
 
     // Дали е взето
-    isTaken: { 
-        type: DataTypes.BOOLEAN, 
-        defaultValue: false 
+    isTaken: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     },
 
     // Кога е пратено първото напомняне
     lastNotified: {
         type: DataTypes.DATE,
+        allowNull: true
+    },
+
+    // За коя дата е пратено последното напомняне
+    lastReminderDate: {
+        type: DataTypes.DATEONLY,
         allowNull: true
     },
 

@@ -8,19 +8,21 @@ console.log('🔍 Опит за зареждане на БД от:', dbPath);
 
 const sequelize = require('./config/db');
 
-// 1. Внос на моделите
-const User = require('./models/User'); 
+// Модели
+const User = require('./models/User');
 const Medication = require('./models/Medication');
 const Event = require('./models/Event');
-const MedicineReference = require('./models/MedicineReference');
-const SymptomReference = require('./models/SymptomReference');
+require('./models/MedicineReference');
+require('./models/SymptomReference');
 
-
-// 2. Внос на маршрутите
+// Маршрути
 const authRoutes = require('./routes/auth');
 const aiRoutes = require('./routes/ai');
 const medsRoutes = require('./routes/meds');
-const symptomsRouter = require('./routes/symptoms');
+
+
+// Reminder service
+const { startMedicationReminderJob } = require('./services/medicationReminderService');
 
 const app = express();
 
@@ -29,19 +31,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 3. Връзки между таблиците
+// Връзки между таблиците
 User.hasMany(Medication, { foreignKey: 'userId', onDelete: 'CASCADE' });
 Medication.belongsTo(User, { foreignKey: 'userId' });
 
 User.hasMany(Event, { foreignKey: 'userId', onDelete: 'CASCADE' });
 Event.belongsTo(User, { foreignKey: 'userId' });
 
-// 4. Маршрути
+// Маршрути
 app.use('/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/meds', medsRoutes);
-app.use('/symptoms', symptomsRouter);
 
+
+// Home
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
 });
@@ -52,8 +55,10 @@ const PORT = process.env.PORT || 3000;
 sequelize.sync({ alter: true })
     .then(() => {
         console.log('✨ Връзката с PostgreSQL е бетон!');
+
         app.listen(PORT, () => {
             console.log(`🚀 Сървърът работи на http://localhost:${PORT}`);
+            startMedicationReminderJob();
         });
     })
     .catch(err => {
