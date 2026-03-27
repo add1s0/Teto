@@ -2,50 +2,54 @@
 <html lang="bg">
 <head>
     <script src="navbar.js" defer></script>
+    <script src="footer.js" defer></script>
+    <script src="symptoms.js" defer></script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Medicine</title>
+    <title>Добавяне на симптоми</title>
+
     <link href="main.css" rel="stylesheet">
-    <link rel="stylesheet" href="addmed.css">
-    <script src="footer.js" defer></script>
+    <link rel="stylesheet" href="symptoms.css">
 </head>
 
 <body>
     <navbar-section></navbar-section>
-<main class="container">
-    <!-- TITLE -->
-    <div class="card title-card">
-        <h2>Добавяне на симптоми</h2>
-    </div>
 
-    <!-- FORM -->
-    <form id="medicineForm">
-        <div id="medications-container">
+    <main class="container">
+        <div class="card title-card">
+            <h2>Добавяне на симптоми</h2>
+            <p>Въведи симптом, сила, дата и час на поява.</p>
+        </div>
 
-            <!-- FIRST CARD -->
-            <div class="card medicine-card">
-                <button type="button" class="remove-btn">✕</button>
-                <div class="autocomplete-wrapper">
-                    <input type="text" name="name" class="medInput" placeholder="Въведи симптом" required autocomplete="off">
-                    <ul class="suggestionsList"></ul>
+        <form id="symptomForm">
+            <div id="symptoms-container">
+                <div class="card symptom-card">
+                    <button type="button" class="remove-btn">✕</button>
+
+                    <input type="text" name="symptom" placeholder="Въведи симптом" required>
+
+                    <select name="severity" required>
+                        <option value="" disabled selected>Избери колко е силен симптомът</option>
+                        <option value="слаб">Слаб</option>
+                        <option value="среден">Среден</option>
+                        <option value="силен">Силен</option>
+                    </select>
+
+                    <div class="date-time-group">
+                        <input type="text" name="date" placeholder="ДД.ММ" maxlength="5" required>
+                        <input type="text" name="time" placeholder="ЧЧ:ММ" maxlength="5" required>
+                    </div>
                 </div>
-                <input type="number" name="dose" placeholder="Колко силен е симптома" min="1" required>
-
-                <div class="time-container"></div>
             </div>
-        </div>
 
-        <div class="button-group">
+            <div class="button-group">
+                <button type="button" id="addSymptomBtn">+ Добави още</button>
+                <button type="submit" class="submit-btn" onclick="window.location.href='dashboard.html'">Добави симптомите</button>
+                </div>
+        </form>
+    </main>
 
-        <button type="button" id="addMedicineBtn">+ Добави още</button>
-        <button type="submit" class="submit-btn">Добави симптомите</button>
-        </div>
-    </form>
-
-</main>
-
-<script src="addmed.js"></script>
-<footer-section></footer-section>
+    <footer-section></footer-section>
 </body>
-
 </html>

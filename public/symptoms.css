@@ -37,28 +37,42 @@ footer-section {
 .title-card h2 {
     color: #124170;
     font-size: 1.8rem;
+    margin-bottom: 0.5rem;
 }
 
-.medicine-card {
+.title-card p {
+    color: #26667F;
+    font-size: 1rem;
+}
+
+.symptom-card {
     position: relative;
 }
 
-input {
+input,
+select {
     width: 100%;
     padding: 0.9rem;
     margin-bottom: 0.7rem;
     border-radius: 0.6rem;
     border: 0.1rem solid #ccc;
     font-size: 1rem;
+    background: white;
 }
 
-input:focus {
+input:focus,
+select:focus {
     outline: none;
     border-color: #67C090;
 }
 
-.time-container input {
-    margin-top: 0.5rem;
+.date-time-group {
+    display: flex;
+    gap: 0.7rem;
+}
+
+.date-time-group input {
+    flex: 1;
 }
 
 .remove-btn {
@@ -81,7 +95,7 @@ input:focus {
     margin: 0 auto;
 }
 
-#addMedicineBtn {
+#addSymptomBtn {
     width: 100%;
     padding: 0.9rem;
     margin-bottom: 1rem;
@@ -104,7 +118,7 @@ input:focus {
     cursor: pointer;
 }
 
-#addMedicineBtn:hover {
+#addSymptomBtn:hover {
     opacity: 0.9;
 }
 
@@ -112,27 +126,9 @@ input:focus {
     background: #26667F;
 }
 
-.autocomplete-wrapper { position: relative; width: 100%; }
-.suggestionsList {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: white;
-    border: 1px solid #ccc;
-    border-top: none;
-    list-style: none;
-    z-index: 1000;
-    display: none;
-    margin-top: -0.7rem; /* Напасва се към твоя margin на инпута */
-    border-radius: 0 0 0.6rem 0.6rem;
-    max-height: 150px;
-    overflow-y: auto;
+@media (max-width: 40rem) {
+    .date-time-group {
+        flex-direction: column;
+        gap: 0;
+    }
 }
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 0.9rem;
-}
-.suggestion-item:hover { background-color: #f0f0f0; }
