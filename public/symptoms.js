@@ -3,24 +3,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const addSymptomBtn = document.getElementById("addSymptomBtn");
     const symptomForm = document.getElementById("symptomForm");
 
+    // Функция за изтриване на карта
     function attachRemoveEvent(button) {
         button.addEventListener("click", () => {
             const allCards = document.querySelectorAll(".symptom-card");
-
+            // Проверка да не изтрием последната останала карта
             if (allCards.length > 1) {
-                button.parentElement.remove();
+                button.closest('.symptom-card').remove();
+            } else {
+                alert("Трябва да има поне един симптом.");
             }
         });
     }
 
+    // Форматиране на дата (ДД.ММ)
     function attachDateFormatting(input) {
         input.addEventListener("input", () => {
             let value = input.value.replace(/\D/g, "");
-
-            if (value.length > 4) {
-                value = value.slice(0, 4);
-            }
-
+            if (value.length > 4) value = value.slice(0, 4);
             if (value.length >= 3) {
                 input.value = value.slice(0, 2) + "." + value.slice(2);
             } else {
@@ -29,14 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Форматиране на час (ЧЧ:ММ)
     function attachTimeFormatting(input) {
         input.addEventListener("input", () => {
             let value = input.value.replace(/\D/g, "");
-
-            if (value.length > 4) {
-                value = value.slice(0, 4);
-            }
-
+            if (value.length > 4) value = value.slice(0, 4);
             if (value.length >= 3) {
                 input.value = value.slice(0, 2) + ":" + value.slice(2);
             } else {
@@ -45,24 +42,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Закачане на всички събития към една карта
     function attachCardEvents(card) {
         const removeBtn = card.querySelector(".remove-btn");
         const dateInput = card.querySelector('input[name="date"]');
         const timeInput = card.querySelector('input[name="time"]');
 
-        attachRemoveEvent(removeBtn);
-        attachDateFormatting(dateInput);
-        attachTimeFormatting(timeInput);
+        if (removeBtn) attachRemoveEvent(removeBtn);
+        if (dateInput) attachDateFormatting(dateInput);
+        if (timeInput) attachTimeFormatting(timeInput);
     }
 
+    // Първоначално закачане на събития към съществуващата карта
     document.querySelectorAll(".symptom-card").forEach(card => {
         attachCardEvents(card);
     });
 
+    // Логика за бутона "+ Добави още"
     addSymptomBtn.addEventListener("click", () => {
         const symptomCard = document.createElement("div");
         symptomCard.className = "card symptom-card";
 
+        // Генерираме новия HTML с правилното хиксче
         symptomCard.innerHTML = `
             <button type="button" class="remove-btn">✕</button>
 
@@ -85,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         attachCardEvents(symptomCard);
     });
 
+    // Обработка на формата при изпращане
     symptomForm.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -101,28 +103,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const time = timeInput.value.trim();
 
             const datePattern = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])$/;
-            const timePattern = /^([01][0-9]|2[0-3]):([0-5][0-9])$/;
+            const timePattern = /^([01][0-9]|2[0-3]):([0-5][0-9])$/ ;
 
             if (!datePattern.test(date)) {
                 hasError = true;
                 dateInput.style.borderColor = "#ff6b6b";
             } else {
-                dateInput.style.borderColor = "#ccc";
+                dateInput.style.borderColor = "#eee";
             }
 
             if (!timePattern.test(time)) {
                 hasError = true;
                 timeInput.style.borderColor = "#ff6b6b";
             } else {
-                timeInput.style.borderColor = "#ccc";
+                timeInput.style.borderColor = "#eee";
             }
 
-            symptoms.push({
-                symptom,
-                severity,
-                date,
-                time
-            });
+            symptoms.push({ symptom, severity, date, time });
         });
 
         if (hasError) {
@@ -130,8 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        console.log("Добавени симптоми:", symptoms);
+        console.log("Изпращане на симптоми към сървъра...", symptoms);
         alert("Симптомите са добавени успешно!");
-        symptomForm.reset();
+        window.location.href = "dashboard.html";
     });
 });
