@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <script src="navbar.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Medicine</title>
+    <link href="main.css" rel="stylesheet">
+    <link rel="stylesheet" href="addmed.css">
+    <script src="footer.js" defer></script>
+</head>
+
+<body>
+    <navbar-section></navbar-section>
+<main class="container">
+    <!-- TITLE -->
+    <div class="card title-card">
+        <h2>Добавяне на симптоми</h2>
+    </div>
+
+    <!-- FORM -->
+    <form id="medicineForm">
+        <div id="medications-container">
+
+            <!-- FIRST CARD -->
+            <div class="card medicine-card">
+                <button type="button" class="remove-btn">✕</button>
+                <div class="autocomplete-wrapper">
+                    <input type="text" name="name" class="medInput" placeholder="Въведи симптом" required autocomplete="off">
+                    <ul class="suggestionsList"></ul>
+                </div>
+                <input type="number" name="dose" placeholder="Колко силен е симптома" min="1" required>
+
+                <div class="time-container"></div>
+            </div>
+        </div>
+
+        <div class="button-group">
+
+        <button type="button" id="addMedicineBtn">+ Добави още</button>
+        <button type="submit" class="submit-btn">Добави симптомите</button>
+        </div>
+    </form>
+
+</main>
+
+<script src="addmed.js"></script>
+<footer-section></footer-section>
+</body>
+
+</html>
