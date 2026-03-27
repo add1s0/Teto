@@ -76,7 +76,7 @@ class Navbar extends HTMLElement {
 
       <nav class="navbar-custom">
         <div class="logo">
-          <a href="home.html">
+          <a href="home2.html">
             <img src="logo.png" alt="MedGuide Logo">
             <span class="med">Med</span><span class="guide">Guide</span>
           </a>
