@@ -86,7 +86,7 @@ class Navbar extends HTMLElement {
           <li><a href="dashboard.html">Dashboard</a></li>
           <li><a href="accessmap.html">AccessMap</a></li>
           <li><a href="calendar.html">Calendar</a></li>
-          <li><a href="mycondition.html">My Conditions</a></li>
+          <li><a href="mycondition.html">My Condition</a></li>
           <li><a href="help.html">Help</a></li>
         </ul>
       </nav>
