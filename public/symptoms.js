@@ -131,4 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Симптомите са добавени успешно!");
         window.location.href = "dashboard.html";
     });
+
+    
 });
