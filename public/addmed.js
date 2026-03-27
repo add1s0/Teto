@@ -1,65 +1,82 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     const container = document.getElementById("medications-container");
     const form = document.getElementById("medicineForm");
+    const addMedicineBtn = document.getElementById("addMedicineBtn");
+
     function setupAutocomplete(card) {
-    const input = card.querySelector('.medInput');
-    const list = card.querySelector('.suggestionsList');
-    input.addEventListener('input', async () => {
-        const val = input.value.trim();
-        if (val.length < 2) { list.style.display = 'none'; return; }
-        try {
-            const res = await fetch(`http://localhost:3000/meds/search?term=${encodeURIComponent(val)}`);
-            const medicines = await res.json();
-            if (medicines.length > 0) {
-                list.innerHTML = medicines.map(m => `<li class="suggestion-item">${m.name}</li>`).join('');
-                list.style.display = 'block';
-            } else { list.style.display = 'none'; }
-        } catch (err) { console.error(err); }
-    });
-    list.addEventListener('click', (e) => {
-        if (e.target.classList.contains('suggestion-item')) {
-            input.value = e.target.innerText;
-            list.style.display = 'none';
-        }
-    });
-    document.addEventListener('click', (e) => { if (!card.contains(e.target)) list.style.display = 'none'; });
-}
+        const input = card.querySelector(".medInput");
+        const list = card.querySelector(".suggestionsList");
 
-    // ===== DOSE → CREATE TIME INPUTS =====
+        if (!input || !list) return;
+
+        input.addEventListener("input", async () => {
+            const val = input.value.trim();
+
+            if (val.length < 2) {
+                list.style.display = "none";
+                return;
+            }
+
+            try {
+                const res = await fetch(`http://localhost:3000/meds/search?term=${encodeURIComponent(val)}`);
+                const medicines = await res.json();
+
+                if (medicines.length > 0) {
+                    list.innerHTML = medicines
+                        .map(m => `<li class="suggestion-item">${m.name}</li>`)
+                        .join("");
+                    list.style.display = "block";
+                } else {
+                    list.style.display = "none";
+                }
+            } catch (err) {
+                console.error("Autocomplete error:", err);
+            }
+        });
+
+        list.addEventListener("click", (e) => {
+            if (e.target.classList.contains("suggestion-item")) {
+                input.value = e.target.innerText;
+                list.style.display = "none";
+            }
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!card.contains(e.target)) {
+                list.style.display = "none";
+            }
+        });
+    }
+
     function attachDoseListener(card) {
-
         const doseInput = card.querySelector("[name='dose']");
         const timeContainer = card.querySelector(".time-container");
 
         doseInput.addEventListener("input", () => {
-
             const dose = parseInt(doseInput.value);
-
             timeContainer.innerHTML = "";
 
             if (!dose || dose < 1) return;
 
             for (let i = 0; i < dose; i++) {
+                const label = document.createElement("label");
+                label.textContent = `Час ${i + 1}:`;
 
                 const timeInput = document.createElement("input");
                 timeInput.type = "time";
                 timeInput.name = "time";
                 timeInput.required = true;
 
+                timeContainer.appendChild(label);
                 timeContainer.appendChild(timeInput);
             }
         });
     }
 
-    // ===== REMOVE MEDICINE =====
     function attachRemoveListener(card) {
-
         const removeBtn = card.querySelector(".remove-btn");
 
         removeBtn.addEventListener("click", () => {
-
-            // не позволява да изтриеш последния
             if (document.querySelectorAll(".medicine-card").length === 1) {
                 alert("Трябва да има поне едно лекарство");
                 return;
@@ -69,23 +86,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ===== APPLY TO FIRST CARD =====
-    document.querySelectorAll(".medicine-card").forEach(card => {
+    function setupCard(card) {
         attachDoseListener(card);
         attachRemoveListener(card);
         setupAutocomplete(card);
-    });
+    }
 
-    // ===== ADD NEW MEDICINE =====
-    document.getElementById("addMedicineBtn").addEventListener("click", () => {
+    document.querySelectorAll(".medicine-card").forEach(setupCard);
 
+    addMedicineBtn.addEventListener("click", () => {
         const newCard = document.createElement("div");
         newCard.classList.add("card", "medicine-card");
 
         newCard.innerHTML = `
             <button type="button" class="remove-btn">✕</button>
 
-            <input type="text" name="name" placeholder="Име на лекарството" required>
+            <div class="autocomplete-wrapper">
+                <input type="text" name="name" class="medInput" placeholder="Име на лекарството" required autocomplete="off">
+                <ul class="suggestionsList"></ul>
+            </div>
 
             <input type="number" name="dose" placeholder="Дневна доза" min="1" required>
 
@@ -93,58 +112,77 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         container.appendChild(newCard);
-
-        attachDoseListener(newCard);
-        attachRemoveListener(newCard);
+        setupCard(newCard);
     });
 
-    // ===== SUBMIT =====
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        const savedUser = JSON.parse(localStorage.getItem("medguideUser"));
+
+        if (!savedUser || !savedUser.id) {
+            alert("Няма логнат потребител. Моля, влез отново.");
+            window.location.href = "login.html";
+            return;
+        }
+
+        const userId = savedUser.id;
         const cards = document.querySelectorAll(".medicine-card");
 
-        const medicines = [];
+        const requests = [];
 
-        cards.forEach(card => {
+        for (const card of cards) {
+            const name = card.querySelector("[name='name']").value.trim();
+            const dose = card.querySelector("[name='dose']").value.trim();
+            const timeInputs = card.querySelectorAll("[name='time']");
 
-            const name = card.querySelector("[name='name']").value;
-            const dose = card.querySelector("[name='dose']").value;
+            if (!name || !dose || timeInputs.length === 0) {
+                alert("Моля, попълни всички полета за всяко лекарство.");
+                return;
+            }
 
-            const times = [];
+            for (const timeInput of timeInputs) {
+                const time = timeInput.value;
 
-            card.querySelectorAll("[name='time']").forEach(t => {
-                times.push(t.value);
-            });
+                if (!time) {
+                    alert("Моля, попълни всички часове.");
+                    return;
+                }
 
-            medicines.push({
-                name,
-                dose,
-                times
-            });
-            setupAutocomplete(newCard);
-        });
-
-        console.log("DATA:", medicines);
+                requests.push(
+                    fetch("http://localhost:3000/meds/add", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            userId,
+                            name,
+                            dosage: `${dose} пъти дневно`,
+                            time
+                        })
+                    })
+                );
+            }
+        }
 
         try {
-            const response = await fetch("http://localhost:3000/meds", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ medicines })
-            });
+            const responses = await Promise.all(requests);
+            const results = await Promise.all(responses.map(r => r.json()));
 
-            const data = await response.json();
+            const failed = responses.find(r => !r.ok);
+
+            if (failed) {
+                console.log(results);
+                alert("Грешка при добавяне на някои лекарства.");
+                return;
+            }
 
             alert("Лекарствата са добавени успешно!");
-            console.log(data);
-
+            window.location.href = "dashboard.html";
         } catch (error) {
-            console.error(error);
+            console.error("Add medicine error:", error);
             alert("Грешка при изпращане!");
         }
     });
-
 });

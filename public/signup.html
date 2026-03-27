@@ -13,43 +13,35 @@
 
 <body>
     <navbar-section></navbar-section>
+
     <main class="container">
-
         <div class="card">
-
             <h2>Sign Up</h2>
 
             <form id="signupForm">
+                <input id="firstName" type="text" placeholder="First Name" required>
+                <input id="lastName" type="text" placeholder="Last Name" required>
 
-                <input type="text" placeholder="First Name" required>
-            <input type="text" placeholder="Last Name" required>
+                <input id="email" type="email" placeholder="Personal Email" required>
 
-            <input type="email" placeholder="Personal Email" required>
+                <input id="password" type="password" placeholder="Password" required>
+                <p class="error" id="passwordError"></p>
 
-            <input type="password" id="password" placeholder="Password" required>
-            <p class="error" id="passwordError"></p>
+                <input id="emergencyFirstName" type="text" placeholder="Emergency Contact First Name" required>
+                <input id="emergencyLastName" type="text" placeholder="Emergency Contact Last Name" required>
+                <input id="emergencyEmail" type="email" placeholder="Emergency Contact Email" required>
 
-            <input type="text" placeholder="Emergency Contact First Name" required>
-            <input type="text" placeholder="Emergency Contact Last Name" required>
-            <input type="email" placeholder="Emergency Contact Email" required>
-
-                <button type="button" onclick="window.location.href='addmed.html'">
-                     Sign Up
-                </button>
-
+                <button type="submit">Sign Up</button>
             </form>
 
             <p class="register-text">
                 You already have an account?
                 <a href="login.html">Log in</a>
             </p>
-
         </div>
-
     </main>
 
     <script src="signup.js"></script>
     <footer-section></footer-section>
-
 </body>
 </html>
