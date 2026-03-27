@@ -18,11 +18,23 @@
         <div class="card">
             <h2>Log In</h2>
 
-            <form>
-                <input type="text" placeholder="Username" required>
-                <input type="password" placeholder="Password" required>
-                <button type="button" onclick="window.location.href='home2.html'">
-                     Log in
+            <form id="loginForm">
+                <input
+                    id="loginEmail"
+                    type="email"
+                    placeholder="Email"
+                    required
+                >
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Password"
+                    required
+                >
+
+                <button type="submit">
+                    Log in
                 </button>
             </form>
 
@@ -33,6 +45,7 @@
         </div>
     </main>
 
+    <script src="login.js"></script>
     <footer-section></footer-section>
 </body>
 </html>

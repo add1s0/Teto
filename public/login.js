@@ -28,13 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Запазваме потребителя за home2.html
             localStorage.setItem("medguideUser", JSON.stringify(result.user));
             console.log("STORED USER:", localStorage.getItem("medguideUser"));
 
             alert(result.message || "Входът е успешен.");
-
-            // Прехвърляне към home2
             window.location.href = "home2.html";
         } catch (error) {
             console.error("Login error:", error);
