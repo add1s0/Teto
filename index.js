@@ -13,7 +13,7 @@ const User = require('./models/User');
 const Medication = require('./models/Medication');
 const Event = require('./models/Event');
 const MedicineReference = require('./models/MedicineReference');
-const symptomsRouter = require('./routes/symptoms');
+const SymptomReference = require('./models/SymptomReference');
 
 
 // 2. Внос на маршрутите
