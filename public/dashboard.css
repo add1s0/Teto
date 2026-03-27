@@ -59,7 +59,7 @@ footer-section {
 
 .summary-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -218,12 +218,6 @@ footer-section {
 .schedule-item button.active {
     outline: 0.15rem solid #124170;
     transform: scale(1.04);
-}
-
-@media (max-width: 75rem) {
-    .summary-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 @media (max-width: 48rem) {
