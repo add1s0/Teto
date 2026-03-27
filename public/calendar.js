@@ -4,64 +4,56 @@ const events = [
         type: "лекарство",
         date: "2026-03-26",
         time: "08:00",
-        status: "прието",
-        note: "Приет след закуска"
+        status: "прието"
     },
     {
         title: "Лекарство за кръвно налягане",
         type: "лекарство",
         date: "2026-03-26",
         time: "13:00",
-        status: "пропуснато",
-        note: "Дозата е пропусната"
+        status: "пропуснато"
     },
     {
         title: "Преглед при лекар",
         type: "здраве",
         date: "2026-03-27",
         time: "10:30",
-        status: "отложено",
-        note: "Пренасрочен за по-късно"
+        status: "прието"
     },
     {
         title: "Антибиотик",
         type: "лекарство",
         date: "2026-03-28",
         time: "09:00",
-        status: "прието",
-        note: "Приет навреме"
+        status: "прието"
     },
     {
         title: "Обезболяващо",
         type: "лекарство",
         date: "2026-03-29",
         time: "21:00",
-        status: "пропуснато",
-        note: "Вечерната доза е пропусната"
+        status: "пропуснато"
     },
     {
         title: "Напомняне за прием на вода",
         type: "здраве",
         date: "2026-03-30",
         time: "14:00",
-        status: "прието",
-        note: "Ежедневна здравна рутина"
+        status: "прието"
     },
     {
         title: "Инхалатор за астма",
         type: "лекарство",
         date: "2026-03-31",
         time: "07:30",
-        status: "отложено",
-        note: "Приет по-късно от планираното"
+        status: "прието"
     },
     {
         title: "Проверка на кръвната захар",
         type: "здраве",
         date: "2026-04-01",
         time: "08:15",
-        status: "прието",
-        note: "Сутрешната проверка е приключена"
+        status: "прието"
     }
 ];
 
@@ -106,14 +98,7 @@ function getMonthName(date) {
 function getStatusClass(status) {
     if (status === "прието") return "taken";
     if (status === "пропуснато") return "missed";
-    if (status === "отложено") return "postponed";
     return "";
-}
-
-function getTypeLabel(type) {
-    if (type === "лекарство") return "Лекарство";
-    if (type === "здраве") return "Здраве";
-    return type;
 }
 
 function updateLabel() {
@@ -156,14 +141,12 @@ function renderDayView() {
                     <div class="day-card-header">
                         <div>
                             <h3>${event.title}</h3>
-                            <p><strong>Тип:</strong> ${getTypeLabel(event.type)}</p>
                             <p><strong>Час:</strong> ${event.time}</p>
                         </div>
                         <span class="status-badge ${getStatusClass(event.status)}">
                             ${capitalize(event.status)}
                         </span>
                     </div>
-                    <p>${event.note}</p>
                 </div>
             `).join("")}
         </div>
@@ -243,29 +226,17 @@ function renderMonthView() {
 
 function generateAIWarnings() {
     const missedEvents = events.filter(event => event.status === "пропуснато");
-    const postponedEvents = events.filter(event => event.status === "отложено");
 
     let warnings = [];
 
     if (missedEvents.length > 0) {
         warnings.push(`
-            <div class="ai-card risk">
+            <div class="ai-card">
                 <h3>Предупреждение за пропусната доза</h3>
                 <p>Имате ${missedEvents.length} пропуснати лекарствени или здравни събития. Повтарящите се пропуски могат да намалят ефективността на лечението.</p>
             </div>
         `);
-    }
-
-    if (postponedEvents.length > 0) {
-        warnings.push(`
-            <div class="ai-card">
-                <h3>Напомняне за отложено събитие</h3>
-                <p>Имате ${postponedEvents.length} отложени напомняния. Опитайте да ги пренасрочите възможно най-скоро, за да не нарушите здравната си рутина.</p>
-            </div>
-        `);
-    }
-
-    if (missedEvents.length === 0 && postponedEvents.length === 0) {
+    } else {
         warnings.push(`
             <div class="ai-card safe">
                 <h3>Чудесна работа</h3>
