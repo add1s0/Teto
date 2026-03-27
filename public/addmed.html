@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
-    <script src="navbar.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Medicine</title>
+    <title>Добавяне на лекарства | MedGuide</title>
+    
+    <script src="navbar.js" defer></script>
+    <script src="footer.js" defer></script>
+    
     <link href="main.css" rel="stylesheet">
     <link rel="stylesheet" href="addmed.css">
-    <script src="footer.js" defer></script>
 </head>
 
 <body>
@@ -16,32 +18,34 @@
     <main class="container">
         <div class="card title-card">
             <h2>Добавяне на лекарства</h2>
+            <p>Въведи име, дневна доза и часове за прием.</p>
         </div>
 
         <form id="medicineForm">
             <div id="medications-container">
                 <div class="card medicine-card">
                     <button type="button" class="remove-btn">✕</button>
-
+                    
                     <div class="autocomplete-wrapper">
                         <input type="text" name="name" class="medInput" placeholder="Име на лекарството" required autocomplete="off">
                         <ul class="suggestionsList"></ul>
                     </div>
 
-                    <input type="number" name="dose" placeholder="Дневна доза" min="1" required>
+                    <input type="number" name="dose" placeholder="Дневна доза (пъти на ден)" min="1" max="12" required>
 
                     <div class="time-container"></div>
                 </div>
             </div>
 
             <div class="button-group">
-                <button type="button" id="addMedicineBtn">+ Добави още</button>
-                <button type="submit" class="submit-btn">Добави лекарствата</button>
+                <button type="button" id="addMedicineBtn">+ Добави още лекарство</button>
+                <button type="submit" class="submit-btn">Запази всички лекарства</button>
             </div>
         </form>
     </main>
 
-    <script src="addmed.js"></script>
     <footer-section></footer-section>
+
+    <script src="addmed.js"></script>
 </body>
 </html>
