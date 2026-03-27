@@ -6,6 +6,7 @@
     <title>MedGuide - Dashboard</title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <script src="navbar.js" defer></script>
     <script src="footer.js" defer></script>
     <script src="dashboard.js" defer></script>
@@ -24,91 +25,81 @@
             </div>
 
             <div class="quick-actions">
-                <button type="button" onclick="window.location.href='addmed.html'">Добави лекарство</button>
-                <button type="button" onclick="window.location.href='symptoms.html'">Добави симптоми</button>
+                <button class="btn-primary" type="button" onclick="window.location.href='addmed.html'">Добави лекарство</button>
+                <button class="btn-secondary" type="button" onclick="window.location.href='symptoms.html'">Добави симптоми</button>
             </div>
         </section>
 
         <section class="summary-grid">
             <div class="summary-card">
-                <h3>Лекарства днес</h3>
-                <p>3 лекарства</p>
-            </div>
-
-            <div class="summary-card">
-                <h3>Следващо напомняне</h3>
-                <p>14:00</p>
-            </div>
-
-            <div class="summary-card">
-                <h3>Проследени симптоми</h3>
-                <p>2 днес</p>
-            </div>
-
-        </section>
-
-        <section class="card-section">
-            <h2>График за днес</h2>
-
-            <div class="schedule-item">
-                <span>08:00 – Aspirin</span>
-                <div class="schedule-actions">
-                    <button class="taken" type="button">Прието</button>
-                    <button class="missed" type="button">Пропуснато</button>
-                    <button class="snooze" type="button">Отложи</button>
+                <div class="card-icon med">
+                    <span class="material-icons-round">medical_services</span>
+                </div>
+                <div class="card-info">
+                    <h3>ЛЕКАРСТВА ДНЕС</h3>
+                    <p id="meds-count">Зареждане...</p>
                 </div>
             </div>
 
-            <div class="schedule-item">
-                <span>14:00 – Vitamin D</span>
-                <div class="schedule-actions">
-                    <button class="pending" type="button">Изчаква</button>
+            <div class="summary-card">
+                <div class="card-icon time">
+                    <span class="material-icons-round">watch_later</span>
+                </div>
+                <div class="card-info">
+                    <h3>СЛЕДВАЩ ПРИЕМ</h3>
+                    <p id="next-reminder">--:--</p>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="card-icon monitoring">
+                    <span class="material-icons-round">desktop_windows</span>
+                </div>
+                <div class="card-info">
+                    <h3>ПРОСЛЕДЕНИ СИМПТОМИ</h3>
+                    <p id="symptoms-count">Зареждане...</p>
                 </div>
             </div>
         </section>
 
-        <section class="card-section">
-            <h2>Моите състояния</h2>
-
-            <div class="condition-item">
-                <h4>Hypertension</h4>
-                <p>Стабилно • Последна актуализация: Днес</p>
-                <button type="button" onclick="window.location.href='mycondition.html'">
-                    Виж подробности
-                </button>
-            </div>
-
-            <div class="condition-item">
-                <h4>Diabetes Type 2</h4>
-                <p>Умерено • Последна актуализация: Вчера</p>
-                <button type="button" onclick="window.location.href='mycondition.html'">
-                    Виж подробности
-                </button>
-            </div>
-        </section>
-
-        <section class="card-section">
+        <div class="dashboard-content-layout">
             
-            <h2>Проследяване на симптоми</h2>
+            <section class="card-section schedule-container">
+                <div class="section-header">
+                    <h2>График за днес</h2>
+                    <span class="date-display">27 Март, 2026</span>
+                </div>
+                <div id="daily-schedule" class="schedule-list">
+                    <p class="loading-msg">Зареждане на графика...</p>
+                </div>
+            </section>
 
-            <p>Главоболие — леко — днес 10:30</p>
-            <p>Умора — средна — вчера</p>
+            <aside class="sidebar-section">
+                <div class="sidebar-inner">
+                    
+                    <section class="card-section symptoms-mini">
+                        <h2>Проследяване на симптоми</h2>
+                        <div id="recent-symptoms" class="symptoms-history">
+                            <p class="loading-msg">Зареждане...</p>
+                        </div>
+                        <button class="secondary-btn" type="button" onclick="window.location.href='symptoms.html'">+ Добави симптом</button>
+                    </section>
 
-            <button class="secondary-btn" type="button" onclick="window.location.href='symptoms.html'">+ Добави симптом</button>
-        </section>
+                    <section class="card-section reward-display">
+                        <div class="reward-header">
+                            <span class="reward-emoji">🏆</span>
+                            <h3>Твоят прогрес</h3>
+                        </div>
+                        <p>7 поредни дни без пропуск!</p>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                        <p class="progress-stat">92% придържане към плана</p>
+                    </section>
 
-        <section class="card-section">
-            <h2>Здравни насоки</h2>
-
-            <p>🔥 Поредни дни без пропуск: 7</p>
-            <p>📊 Спазване на лечението: 92%</p>
-            <p>✅ Симптомите са подобрени тази седмица</p>
-
-            <div class="reward-box">
-                <p>🎁 Отключена награда!</p>
-                <p>10% отстъпка в City Pharmacy</p>
-            </div>
-        </section>
+                </div>
+            </aside>
+        </div>
 
     </main>
 

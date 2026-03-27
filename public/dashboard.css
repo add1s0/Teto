@@ -1,256 +1,165 @@
+/* ВРЪЩАНЕ НА ОРИГИНАЛНИ ЦВЕТОВЕ И ШРИФТОВЕ - УГОЛЕМЕНИ ЕЛЕМЕНТИ */
 body {
-    background-color: #DDF4E7;
-    color: #124170;
-}
-
-navbar-section,
-footer-section {
-    display: block;
-    width: 100%;
+    background-color: #DDF4E7; /* */
+    color: #124170; /* */
+    font-family: Arial, sans-serif; /* */
+    margin: 0;
+    padding: 0;
 }
 
 .dashboard-container {
     width: 100%;
-    max-width: 120rem;
+    max-width: 1500px; /* Още по-широко за запълване на празното пространство */
     margin: 0 auto;
-    padding: 2.5rem 2rem 3rem;
+    padding: 3rem 2rem; /* Увеличено отстояние отгоре */
 }
 
+/* HEADER СЕКЦИЯ */
 .welcome {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
+    margin-bottom: 3rem; /* Повече място под заглавието */
 }
 
 .welcome h2 {
+    font-size: 3rem; /* Увеличено заглавие */
     color: #124170;
-    font-size: 2.4rem;
-    margin-bottom: 0.4rem;
 }
 
 .welcome p {
+    font-size: 1.4rem;
     color: #26667F;
-    font-size: 1.2rem;
 }
 
 .quick-actions {
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
 .quick-actions button {
-    padding: 0.85rem 1.4rem;
+    padding: 1.2rem 2rem; /* По-големи бутони */
     border: none;
-    border-radius: 0.75rem;
+    border-radius: 1rem;
     background-color: #124170;
     color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: 0.3s;
-    font-size: 1rem;
 }
 
-.quick-actions button:hover {
-    background-color: #26667F;
-}
-
+/* СТАТИСТИКИ - УГОЛЕМЕНИ КАРТИ */
 .summary-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3.5rem;
 }
 
 .summary-card {
     background: white;
-    padding: 1.75rem;
+    padding: 2.5rem 2rem; /* Много по-обемни карти */
+    border-radius: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.06);
+}
+
+.card-icon {
+    width: 70px; /* По-големи икони */
+    height: 70px;
+    background: #f0f7f4;
     border-radius: 1rem;
-    box-shadow: 0 0.6rem 1.5rem rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.summary-card h3 {
-    color: #124170;
-    margin-bottom: 0.6rem;
-    font-size: 1.1rem;
+.material-icons-round {
+    font-size: 2.8rem; /* По-голям символ */
 }
 
-.summary-card p {
-    color: #26667F;
+.med { color: #3182CE; }
+.time { color: #E53E3E; }
+.monitoring { color: #67C090; } /* */
+
+.card-info h3 {
     font-size: 1rem;
+    color: #26667F;
+    letter-spacing: 0.05rem;
+}
+
+.card-info p {
+    font-size: 1.6rem; /* По-големи стойности (3 лекарства, 14:00) */
+    font-weight: bold;
+    color: #124170;
+}
+
+/* ОСНОВНА ПОДРЕДБА */
+.dashboard-content-layout {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr; /* Графикът заема повече място */
+    gap: 3rem;
 }
 
 .card-section {
     background: white;
-    padding: 1.75rem;
-    border-radius: 1rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 0.6rem 1.5rem rgba(0,0,0,0.05);
+    padding: 3rem; /* Увеличено вътрешно пространство */
+    border-radius: 1.5rem;
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.05);
 }
 
 .card-section h2 {
-    color: #124170;
-    margin-bottom: 1.2rem;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
 }
 
-.schedule-item {
+/* SIDEBAR - РАЗСТОЯНИЕ МЕЖДУ СИМПТОМИ И ПРОГРЕС */
+.sidebar-inner {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 3rem; /* ТОВА ПРАВИ РАЗСТОЯНИЕТО МЕЖДУ ДВЕТЕ КАРТИ ВДЯСНО */
+}
+
+/* ПРОГРЕС / НАГРАДА - УГОЛЕМЕН */
+.reward-display {
+    background: #124170;
+    color: white;
+    padding: 2.5rem;
+}
+
+.reward-header {
+    display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
 }
 
-.schedule-item span {
+.reward-emoji { font-size: 2.5rem; }
+
+.progress-track {
+    background: rgba(255, 255, 255, 0.2);
+    height: 18px; /* По-дебела прогрес лента */
+    border-radius: 9px;
+    margin: 1.5rem 0;
+}
+
+.progress-fill {
+    background: #67C090;
+    height: 100%;
+    border-radius: 9px;
+}
+
+.progress-stat {
+    font-weight: bold;
     font-size: 1.1rem;
-    color: #111;
 }
 
-.schedule-actions {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
-
-.schedule-item button {
-    padding: 0.55rem 0.95rem;
-    border-radius: 0.6rem;
-    border: none;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: 0.2s;
-}
-
-.taken {
-    background: #67C090;
-    color: white;
-}
-
-.missed {
-    background: #ff6b6b;
-    color: white;
-}
-
-.snooze {
-    background: #26667F;
-    color: white;
-}
-
-.pending {
-    background: #d9d9d9;
-    color: #222;
-}
-
-.condition-item {
-    margin-bottom: 1.6rem;
-}
-
-.condition-item:last-child {
-    margin-bottom: 0;
-}
-
-.condition-item h4 {
-    font-size: 1.5rem;
-    margin-bottom: 0.35rem;
-    color: #111;
-}
-
-.condition-item p {
-    margin-bottom: 0.75rem;
-    color: #222;
-    font-size: 1rem;
-}
-
-.condition-item button {
-    padding: 0.65rem 1.1rem;
-    border-radius: 0.6rem;
-    border: none;
-    background: #124170;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 0.95rem;
-}
-
-.condition-item button:hover {
-    background: #26667F;
-}
-
-.secondary-btn {
-    margin-top: 1rem;
-    padding: 0.7rem 1.1rem;
-    border-radius: 0.6rem;
-    border: none;
-    background: #124170;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 0.95rem;
-}
-
-.secondary-btn:hover {
-    background: #26667F;
-}
-
-.card-section p {
-    margin-bottom: 0.45rem;
-    font-size: 1rem;
-    color: #111;
-}
-
-.reward-box {
-    margin-top: 1.2rem;
-    padding: 1rem 1.2rem;
-    background: #67C090;
-    color: white;
-    border-radius: 0.8rem;
-}
-
-.reward-box p {
-    color: white;
-    margin-bottom: 0.2rem;
-}
-
-.schedule-item button.active {
-    outline: 0.15rem solid #124170;
-    transform: scale(1.04);
-}
-
-@media (max-width: 48rem) {
-    .dashboard-container {
-        padding: 1.5rem 1rem 2rem;
-    }
-
-    .welcome h2 {
-        font-size: 2rem;
-    }
-
-    .welcome p {
-        font-size: 1rem;
-    }
-
-    .summary-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .card-section h2 {
-        font-size: 1.5rem;
-    }
-
-    .schedule-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .schedule-actions {
-        width: 100%;
-    }
-
-    .schedule-item button {
-        flex: 1;
-    }
+/* СТИЛ ЗА ЗАРЕЖДАНЕ */
+.loading-msg {
+    font-size: 1.2rem;
+    color: #26667F;
+    font-style: italic;
 }
