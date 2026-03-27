@@ -6,6 +6,12 @@ const sequelize = require('../config/db');
  * Съхранява информация за лекарствата, графика на прием и контактите за известяване.
  */
 const Medication = sequelize.define('Medication', {
+    // ID на потребителя, за връзка с User таблицата
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+
     // Имейл на потребителя, на който ще се праща първото напомняне
     userEmail: { 
         type: DataTypes.STRING, 
@@ -14,6 +20,7 @@ const Medication = sequelize.define('Medication', {
             isEmail: true
         }
     },
+
     // Имейл на близък човек, ако потребителят не отбележи, че е взел хапчето
     emergencyEmail: { 
         type: DataTypes.STRING, 
@@ -22,34 +29,50 @@ const Medication = sequelize.define('Medication', {
             isEmail: true
         }
     },
-    // Име на лекарството (може да идва от Autocomplete списъка)
+
+    // Име на лекарството
     name: { 
         type: DataTypes.STRING, 
         allowNull: false 
     },
-    // Количество (напр. "1 таблетка", "5мл")
+
+    // Количество
     dosage: { 
         type: DataTypes.STRING,
         allowNull: true 
     },
-    // Час на прием (напр. "08:00")
+
+    // Час на прием
     time: { 
         type: DataTypes.TIME, 
         allowNull: false 
     },
-    // Статус дали е взето - ако остане false след определен час, се праща спешен имейл
+
+    // Дали е взето
     isTaken: { 
         type: DataTypes.BOOLEAN, 
         defaultValue: false 
     },
-    // Помага на логиката за имейли да знае кога последно е пратено известие
+
+    // Кога е пратено първото напомняне
     lastNotified: {
+        type: DataTypes.DATE,
+        allowNull: true
+    },
+
+    // Дали е пратен email на emergency contact
+    emergencyNotified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+
+    // Кога е отбелязано като изпито
+    takenAt: {
         type: DataTypes.DATE,
         allowNull: true
     }
 }, {
-    // Автоматично добавя createdAt и updatedAt
-    timestamps: true 
+    timestamps: true
 });
 
 module.exports = Medication;

@@ -13,11 +13,14 @@ const User = require('./models/User');
 const Medication = require('./models/Medication');
 const Event = require('./models/Event');
 const MedicineReference = require('./models/MedicineReference');
+const symptomsRouter = require('./routes/symptoms');
+
 
 // 2. Внос на маршрутите
 const authRoutes = require('./routes/auth');
 const aiRoutes = require('./routes/ai');
 const medsRoutes = require('./routes/meds');
+const symptomsRouter = require('./routes/symptoms');
 
 const app = express();
 
@@ -37,6 +40,7 @@ Event.belongsTo(User, { foreignKey: 'userId' });
 app.use('/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/meds', medsRoutes);
+app.use('/symptoms', symptomsRouter);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'home.html'));
