@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-
     const form = document.getElementById("signupForm");
     const passwordInput = document.getElementById("password");
     const errorText = document.getElementById("passwordError");
+
+    if (!form) return;
 
     function validatePassword() {
         const password = passwordInput.value;
@@ -11,23 +12,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
         if (!hasMinLength || !hasSpecialChar) {
-
-            // 👉 текст на 2 реда + nowrap за символите
-            let message = "Password must contain:<br>at least 8 characters; at least 1 special symbol <span class='nowrap'>(!@#...)</span>";
+            const message =
+                "Password must contain:<br>at least 8 characters; at least 1 special symbol <span class='nowrap'>(!@#...)</span>";
 
             errorText.innerHTML = message;
             errorText.style.display = "block";
 
-            // 👉 shake ефект
             passwordInput.classList.add("shake");
 
             setTimeout(() => {
                 passwordInput.classList.remove("shake");
             }, 300);
 
-            // 👉 изтриваме само паролата
             passwordInput.value = "";
-
             return false;
         }
 
@@ -35,11 +32,51 @@ document.addEventListener("DOMContentLoaded", function () {
         return true;
     }
 
-    // 👉 submit проверка
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
         if (!validatePassword()) {
-            e.preventDefault();
+            return;
+        }
+
+        const data = {
+            firstName: document.getElementById("firstName").value.trim(),
+            lastName: document.getElementById("lastName").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            password: document.getElementById("password").value,
+            emergencyFirstName: document.getElementById("emergencyFirstName").value.trim(),
+            emergencyLastName: document.getElementById("emergencyLastName").value.trim(),
+            emergencyEmail: document.getElementById("emergencyEmail").value.trim()
+        };
+
+        try {
+            const response = await fetch("http://localhost:3000/auth/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            console.log("Signup result:", result);
+
+            if (!response.ok) {
+                alert(result.message || "Грешка при регистрация.");
+                return;
+            }
+
+            if (result.user) {
+                localStorage.setItem("medguideUser", JSON.stringify(result.user));
+            }
+
+            alert(result.message || "Регистрацията е успешна.");
+
+            // СМЕНИ ТУК според истинското име на файла
+            window.location.href = "home2.html";
+        } catch (error) {
+            console.error("Signup error:", error);
+            alert("Сървърна грешка при регистрация.");
         }
     });
-
 });
