@@ -4,7 +4,6 @@ const sequelize = require('../config/db');
 /**
  * Модел Medication
  * Съхранява информация за лекарствата и графика на прием.
- * Имейлите се взимат от User таблицата.
  */
 const Medication = sequelize.define('Medication', {
     // ID на потребителя, връзка към User таблицата
@@ -25,19 +24,19 @@ const Medication = sequelize.define('Medication', {
         allowNull: true
     },
 
-    // Час на прием
+    // Час на прием (използваме TIME за по-лесна работа с графици)
     time: {
         type: DataTypes.TIME,
         allowNull: false
     },
 
-    // Дали е взето
+    // Дали е взето за текущия ден
     isTaken: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
 
-    // Кога е пратено първото напомняне
+    // Кога е изпратено последното напомняне (за предотвратяване на дублирани имейли)
     lastNotified: {
         type: DataTypes.DATE,
         allowNull: true
@@ -49,18 +48,19 @@ const Medication = sequelize.define('Medication', {
         allowNull: true
     },
 
-    // Дали е пратен email на emergency contact
+    // Дали е пратен email на emergency contact при пропуск
     emergencyNotified: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
 
-    // Кога е отбелязано като изпито
-    takenAt: {
-        type: DataTypes.DATE,
+    // Допълнителни инструкции (на гладно, след хранене и т.н.)
+    instructions: {
+        type: DataTypes.TEXT,
         allowNull: true
     }
 }, {
+    // Автоматично добавя createdAt и updatedAt
     timestamps: true
 });
 

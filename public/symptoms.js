@@ -3,11 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const addSymptomBtn = document.getElementById("addSymptomBtn");
     const symptomForm = document.getElementById("symptomForm");
 
-    // Функция за изтриване на карта
+    // --- ОРИГИНАЛНИ ФУНКЦИИ (БЕЗ ПРОМЯНА) ---
+
     function attachRemoveEvent(button) {
         button.addEventListener("click", () => {
             const allCards = document.querySelectorAll(".symptom-card");
-            // Проверка да не изтрием последната останала карта
             if (allCards.length > 1) {
                 button.closest('.symptom-card').remove();
             } else {
@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Форматиране на дата (ДД.ММ)
     function attachDateFormatting(input) {
         input.addEventListener("input", () => {
             let value = input.value.replace(/\D/g, "");
@@ -29,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Форматиране на час (ЧЧ:ММ)
     function attachTimeFormatting(input) {
         input.addEventListener("input", () => {
             let value = input.value.replace(/\D/g, "");
@@ -42,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Закачане на всички събития към една карта
     function attachCardEvents(card) {
         const removeBtn = card.querySelector(".remove-btn");
         const dateInput = card.querySelector('input[name="date"]');
@@ -53,73 +50,66 @@ document.addEventListener("DOMContentLoaded", () => {
         if (timeInput) attachTimeFormatting(timeInput);
     }
 
-    // Първоначално закачане на събития към съществуващата карта
+    // Първоначално закачане на събития
     document.querySelectorAll(".symptom-card").forEach(card => {
         attachCardEvents(card);
     });
 
-    // Логика за бутона "+ Добави още"
     addSymptomBtn.addEventListener("click", () => {
         const symptomCard = document.createElement("div");
         symptomCard.className = "card symptom-card";
-
-        // Генерираме новия HTML с правилното хиксче
         symptomCard.innerHTML = `
             <button type="button" class="remove-btn">✕</button>
-
             <input type="text" name="symptom" placeholder="Въведи симптом" required>
-
             <select name="severity" required>
                 <option value="" disabled selected>Избери колко е силен симптомът</option>
                 <option value="слаб">Слаб</option>
                 <option value="среден">Среден</option>
                 <option value="силен">Силен</option>
             </select>
-
             <div class="date-time-group">
                 <input type="text" name="date" placeholder="ДД.ММ" maxlength="5" required>
                 <input type="text" name="time" placeholder="ЧЧ:ММ" maxlength="5" required>
             </div>
         `;
-
         symptomsContainer.appendChild(symptomCard);
         attachCardEvents(symptomCard);
     });
 
-    // Обработка на формата при изпращане
-    symptomForm.addEventListener("submit", (e) => {
+    // --- ОБНОВЕНА ЛОГИКА ЗА ИЗПРАЩАНЕ КЪМ БЕКЕНДА ---
+
+    symptomForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const symptomCards = document.querySelectorAll(".symptom-card");
-        const symptoms = [];
+        const symptomsData = [];
         let hasError = false;
 
         symptomCards.forEach(card => {
-            const symptom = card.querySelector('input[name="symptom"]').value.trim();
+            const symptomName = card.querySelector('input[name="symptom"]').value.trim();
             const severity = card.querySelector('select[name="severity"]').value;
             const dateInput = card.querySelector('input[name="date"]');
             const timeInput = card.querySelector('input[name="time"]');
             const date = dateInput.value.trim();
             const time = timeInput.value.trim();
 
+            // Валидация
             const datePattern = /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])$/;
-            const timePattern = /^([01][0-9]|2[0-3]):([0-5][0-9])$/ ;
+            const timePattern = /^([01][0-9]|2[0-3]):([0-5][0-9])$/;
 
-            if (!datePattern.test(date)) {
+            if (!datePattern.test(date) || !timePattern.test(time)) {
                 hasError = true;
-                dateInput.style.borderColor = "#ff6b6b";
-            } else {
-                dateInput.style.borderColor = "#eee";
+                if (!datePattern.test(date)) dateInput.style.borderColor = "#ff6b6b";
+                if (!timePattern.test(time)) timeInput.style.borderColor = "#ff6b6b";
+                return;
             }
 
-            if (!timePattern.test(time)) {
-                hasError = true;
-                timeInput.style.borderColor = "#ff6b6b";
-            } else {
-                timeInput.style.borderColor = "#eee";
-            }
-
-            symptoms.push({ symptom, severity, date, time });
+            symptomsData.push({
+                symptom: symptomName,
+                severity: severity,
+                date: date,
+                time: time
+            });
         });
 
         if (hasError) {
@@ -127,59 +117,30 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        console.log("Изпращане на симптоми към сървъра...", symptoms);
-        alert("Симптомите са добавени успешно!");
-        window.location.href = "dashboard.html";
+        try {
+            // Изпращане към API маршрута в symptom.js
+            const response = await fetch("http://localhost:3000/symptoms/add", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    symptoms: symptomsData,
+                    userId: 1
+                })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                alert("Симптомите бяха записани успешно!");
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Грешка при запис: " + (result.error || "Неизвестна грешка"));
+            }
+        } catch (error) {
+            console.error("Грешка при връзка със сървъра:", error);
+            alert("Няма връзка със сървъра. Проверете дали Node.js работи.");
+        }
     });
-    //ottuk//
-    document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("symptomForm");
-  const errorMsg = document.createElement("p");
-  errorMsg.style.color = "red";
-  form.appendChild(errorMsg);
-
-  form.addEventListener("submit", function(e) {
-    const inputs = document.querySelectorAll("#dateInput");
-
-    errorMsg.textContent = "";
-
-    const today = new Date();
-    const year = today.getFullYear();
-    const todayOnly = new Date(year, today.getMonth(), today.getDate());
-
-    for (let input of inputs) {
-      const value = input.value;
-      const parts = value.split(".");
-
-      if (parts.length !== 2) {
-        e.preventDefault();
-        errorMsg.textContent = "Невалиден формат (пример: 12.03)";
-        return;
-      }
-
-      const d = parseInt(parts[0], 10);
-      const m = parseInt(parts[1], 10);
-
-      const date = new Date(year, m - 1, d);
-
-      // дали съществува
-      if (
-        date.getFullYear() !== year ||
-        date.getMonth() !== m - 1 ||
-        date.getDate() !== d
-      ) {
-        e.preventDefault();
-        errorMsg.textContent = "Тази дата не съществува";
-        return;
-      }
-
-      // бъдеща дата
-      if (date > todayOnly) {
-        e.preventDefault();
-        errorMsg.textContent = "Не може бъдеща дата";
-        return;
-      }
-    }
-  });
-});
 });

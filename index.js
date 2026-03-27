@@ -19,6 +19,8 @@ require('./models/SymptomReference');
 const authRoutes = require('./routes/auth');
 const aiRoutes = require('./routes/ai');
 const medsRoutes = require('./routes/meds');
+const symptomRoutes = require('./routes/symptom');
+
 
 
 // Reminder service
@@ -42,6 +44,7 @@ Event.belongsTo(User, { foreignKey: 'userId' });
 app.use('/auth', authRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/meds', medsRoutes);
+app.use('/symptoms', symptomRoutes);
 
 
 // Home

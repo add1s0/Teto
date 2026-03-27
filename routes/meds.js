@@ -6,7 +6,9 @@ const MedicineReference = require('../models/MedicineReference');
 const Medication = require('../models/Medication');
 const User = require('../models/User');
 
-// 🔍 API за Autocomplete
+// 🔍 1. API ЗА ТЪРСЕНЕ (AUTOCOMPLETE)
+// Използва се при добавяне на лекарство, за да предлага имена от справочника
+// Път: GET /meds/search?term=...
 router.get('/search', async (req, res) => {
     try {
         const searchTerm = req.query.term;
@@ -26,32 +28,26 @@ router.get('/search', async (req, res) => {
 
         res.json(results);
     } catch (error) {
-        console.error('Грешка при търсене:', error);
-        res.status(500).json({ error: 'Сървърна грешка' });
+        console.error('Грешка при търсене в справочника:', error);
+        res.status(500).json({ error: 'Сървърна грешка при търсене' });
     }
 });
 
-// 💊 API за добавяне на лично напомняне
+// 💊 2. API ЗА ДОБАВЯНЕ НА ЛЕКАРСТВО
+// Път: POST /meds/add
 router.post('/add', async (req, res) => {
     try {
         const { userId, name, dosage, time } = req.body;
 
-        if (!userId || !name || !time) {
-            return res.status(400).json({
-                error: 'Липсват задължителни полета'
-            });
+        if (!name || !time) {
+            return res.status(400).json({ error: 'Името и часът са задължителни полета' });
         }
 
-        const user = await User.findByPk(userId);
-
-        if (!user) {
-            return res.status(404).json({
-                error: 'Потребителят не е намерен'
-            });
-        }
+        // Използваме подадения userId или 1 по подразбиране за тестови цели
+        const targetUserId = userId || 1;
 
         const newMedication = await Medication.create({
-            userId,
+            userId: targetUserId,
             name,
             dosage,
             time,
@@ -68,12 +64,13 @@ router.post('/add', async (req, res) => {
             medication: newMedication
         });
     } catch (error) {
-        console.error('Грешка при запис:', error);
+        console.error('Грешка при запис на лекарство:', error);
         res.status(500).json({ error: 'Неуспешно добавяне на лекарство' });
     }
 });
 
-// ✅ Отбелязване, че хапчето е изпито
+// ✅ 3. ОТБЕЛЯЗВАНЕ КАТО ИЗПИТО
+// Път: POST /meds/taken/:id
 router.post('/taken/:id', async (req, res) => {
     try {
         const medication = await Medication.findByPk(req.params.id);
@@ -83,7 +80,7 @@ router.post('/taken/:id', async (req, res) => {
         }
 
         medication.isTaken = true;
-        medication.takenAt = new Date();
+        medication.takenAt = new Date(); // Записваме точното време на прием
         await medication.save();
 
         res.json({
@@ -91,32 +88,45 @@ router.post('/taken/:id', async (req, res) => {
             message: 'Лекарството е отбелязано като изпито'
         });
     } catch (error) {
-        console.error('Грешка при отбелязване:', error);
-        res.status(500).json({ error: 'Сървърна грешка' });
+        console.error('Грешка при обновяване на статус:', error);
+        res.status(500).json({ error: 'Сървърна грешка при отбелязване' });
     }
 });
 
-// 📋 Връщане на всички лекарства
+// 📋 4. ИЗВЛИЧАНЕ НА ВСИЧКИ ЛЕКАРСТВА (За Dashboard)
+// Път: GET /meds/all
+router.get('/all', async (req, res) => {
+    try {
+        const meds = await Medication.findAll({
+            order: [['time', 'ASC']], // Сортираме ги по час, за да изглеждат добре в графика
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'email', 'emergencyEmail']
+                }
+            ]
+        });
+        res.json(meds);
+    } catch (error) {
+        console.error('Грешка при извличане на списъка (all):', error);
+        res.status(500).json({ error: 'Сървърна грешка при зареждане' });
+    }
+});
+
+// 📋 5. АЛТЕРНАТИВЕН МАРШРУТ (Ако фронтендът търси просто /meds)
 router.get('/', async (req, res) => {
     try {
         const meds = await Medication.findAll({
             include: [
                 {
                     model: User,
-                    attributes: [
-                        'id',
-                        'firstName',
-                        'lastName',
-                        'email',
-                        'emergencyEmail'
-                    ]
+                    attributes: ['id', 'firstName', 'lastName', 'email', 'emergencyEmail']
                 }
             ]
         });
-
         res.json(meds);
     } catch (error) {
-        console.error('Грешка при зареждане:', error);
+        console.error('Грешка при зареждане на лекарства:', error);
         res.status(500).json({ error: 'Сървърна грешка' });
     }
 });

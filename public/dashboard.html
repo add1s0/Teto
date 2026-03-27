@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="dashboard.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    
     <script src="navbar.js" defer></script>
     <script src="footer.js" defer></script>
     <script src="dashboard.js" defer></script>
@@ -20,7 +21,7 @@
 
         <section class="welcome">
             <div class="welcome-text">
-                <h2>Здравей, Teto 👋</h2>
+                <h2>Здравей, <span id="userName">потребител</span> 👋</h2>
                 <p>Ето твоето здравно обобщение за днес</p>
             </div>
 
@@ -37,7 +38,7 @@
                 </div>
                 <div class="card-info">
                     <h3>ЛЕКАРСТВА ДНЕС</h3>
-                    <p id="meds-count">Зареждане...</p>
+                    <p id="meds-count">0</p>
                 </div>
             </div>
 
@@ -56,8 +57,8 @@
                     <span class="material-icons-round">desktop_windows</span>
                 </div>
                 <div class="card-info">
-                    <h3>ПРОСЛЕДЕНИ СИМПТОМИ</h3>
-                    <p id="symptoms-count">Зареждане...</p>
+                    <h3>СИМПТОМИ ДНЕС</h3>
+                    <p id="symptoms-count">0</p>
                 </div>
             </div>
         </section>
@@ -67,7 +68,7 @@
             <section class="card-section schedule-container">
                 <div class="section-header">
                     <h2>График за днес</h2>
-                    <span class="date-display">27 Март, 2026</span>
+                    <span class="date-display" id="current-date-display"></span>
                 </div>
                 <div id="daily-schedule" class="schedule-list">
                     <p class="loading-msg">Зареждане на графика...</p>
@@ -78,11 +79,13 @@
                 <div class="sidebar-inner">
                     
                     <section class="card-section symptoms-mini">
-                        <h2>Проследяване на симптоми</h2>
+                        <h2>Последни симптоми</h2>
                         <div id="recent-symptoms" class="symptoms-history">
                             <p class="loading-msg">Зареждане...</p>
                         </div>
-                        <button class="secondary-btn" type="button" onclick="window.location.href='symptoms.html'">+ Добави симптом</button>
+                        <button class="secondary-btn" style="margin-top: 1rem; width: 100%; padding: 0.8rem; border-radius: 0.8rem; border: 1px solid #124170; background: transparent; color: #124170; font-weight: bold; cursor: pointer;" type="button" onclick="window.location.href='symptoms.html'">
+                            + Добави симптом
+                        </button>
                     </section>
 
                     <section class="card-section reward-display">
@@ -90,11 +93,11 @@
                             <span class="reward-emoji">🏆</span>
                             <h3>Твоят прогрес</h3>
                         </div>
-                        <p>7 поредни дни без пропуск!</p>
+                        <p>Придържане към плана</p>
                         <div class="progress-track">
-                            <div class="progress-fill" style="width: 92%"></div>
+                            <div class="progress-fill" id="progress-bar-fill" style="width: 0%"></div>
                         </div>
-                        <p class="progress-stat">92% придържане към плана</p>
+                        <p class="progress-stat" id="progress-text">0% завършени</p>
                     </section>
 
                 </div>
@@ -104,6 +107,11 @@
     </main>
 
     <footer-section></footer-section>
+
+    <script>
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById('current-date-display').textContent = new Date().toLocaleDateString('bg-BG', options);
+    </script>
 
 </body>
 </html>

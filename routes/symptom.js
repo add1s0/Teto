@@ -1,69 +1,59 @@
-
 const express = require('express');
 const router = express.Router();
-const SymptomReference = require('../models/SymptomReference');
-const Event = require('../models/Event');
 const { Op } = require('sequelize');
+const Event = require('../models/Event');
 
-// 1. ТЕСТОВ МАРШРУТ
-// Достъпен на: GET http://localhost:3000/api/symptoms/test
-router.get('/test', (req, res) => {
-    res.send('Бекендът на симптомите работи!');
-});
-
-// 2. ТЪРСЕНЕ (AUTO-COMPLETE)
-// ВАЖНО: Тук пътят трябва да е само '/search'
-// Пълният път автоматично става /api/symptoms/search
-router.get('/search', async (req, res) => {
+// --- 📋 ИЗВЛИЧАНЕ НА ДАННИ ЗА DASHBOARD ---
+router.get('/summary', async (req, res) => {
     try {
-        const term = req.query.term || '';
-        
-        if (term.length < 1) {
-            return res.json([]);
-        }
+        const targetUserId = 1; // За тестове ползваме ID 1
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-        const symptoms = await SymptomReference.findAll({
-            where: {
-                name: {
-                    [Op.iLike]: `%${term}%` 
-                }
-            },
-            attributes: ['id', 'name', 'category'],
-            limit: 10,
-            order: [['name', 'ASC']]
+        // 1. Вземаме последните 3 симптома за малката история (Sidebar)
+        const recentEvents = await Event.findAll({
+            where: { userId: targetUserId, type: 'symptom' },
+            order: [['createdAt', 'DESC']],
+            limit: 3
         });
 
-        res.json(symptoms);
+        // 2. Броим колко симптома са записани за днес
+        const countToday = await Event.count({
+            where: {
+                userId: targetUserId,
+                type: 'symptom',
+                createdAt: { [Op.gte]: today }
+            }
+        });
+
+        res.json({
+            success: true,
+            recent: recentEvents,
+            countToday: countToday
+        });
     } catch (error) {
-        console.error('Грешка при търсене:', error);
+        console.error('Грешка при извличане на обобщение:', error);
         res.status(500).json({ error: 'Сървърна грешка' });
     }
 });
 
-// 3. ЗАПИСВАНЕ
-// Пълният път: POST /api/symptoms/add
+// --- ➕ ЗАПИСВАНЕ НА НОВИ СИМПТОМИ (Твоят съществуващ маршрут) ---
 router.post('/add', async (req, res) => {
     try {
-        const { symptoms } = req.body;
-        const userId = 1; // Временно hardcoded
-
-        if (!symptoms || !Array.isArray(symptoms)) {
-            return res.status(400).json({ error: 'Невалидни данни' });
-        }
+        const { symptoms, userId } = req.body;
+        const targetUserId = userId || 1;
 
         const records = symptoms.map(s => ({
-            userId: userId,
+            userId: targetUserId,
             type: 'symptom',
             title: s.symptom,
-            description: `Сила: ${s.severity}`,
-            date: s.date,
-            time: s.time
+            description: `Сила: ${s.severity}. Време: ${s.date} ${s.time}`,
+            createdAt: new Date()
         }));
 
         await Event.bulkCreate(records);
-        res.json({ success: true });
+        res.status(201).json({ success: true });
     } catch (error) {
-        console.error('Грешка при запис:', error);
         res.status(500).json({ error: 'Грешка при запис' });
     }
 });
