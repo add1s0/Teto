@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="bg">
 <head>
+    <script src="navbar.js" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedGuide - Помощ</title>
-
+    <link href="main.css" rel="stylesheet">
     <link rel="stylesheet" href="help.css">
+    <script src="footer.js" defer></script>
 </head>
 
 <body>
-
+<navbar-section></navbar-section>
 <main class="dashboard-container">
 
     <!-- HEADER -->
@@ -78,15 +80,15 @@
     </section>
 
     <!-- CONTACT -->
-    <section class=“card-section contact-card”>
-    <p class=“contact-text”>
+    <section class="card-section contact-card">
+    <p class="contact-text">
         При допълнителни въпроси може да се свържете с нас като ни пишете на имейл:
     </p>
 
-    <p class=“contact-email”>
+    <p class="contact-email">
         meddguide12@gmail.com
     </p>
-    </section>
+</section>
 
 </main>
 
@@ -97,6 +99,6 @@ document.querySelectorAll(".faq-question").forEach(btn => {
     });
 });
 </script>
-
+<footer-section></footer-section>
 </body>
 </html>
