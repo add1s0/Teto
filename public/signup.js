@@ -71,9 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             alert(result.message || "Регистрацията е успешна.");
-
-            // СМЕНИ ТУК според истинското име на файла
-            window.location.href = "home2.html";
+            window.location.href = "addmed.html";
         } catch (error) {
             console.error("Signup error:", error);
             alert("Сървърна грешка при регистрация.");

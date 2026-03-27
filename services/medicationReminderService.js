@@ -11,13 +11,28 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+transporter.verify((error, success) => {
+    if (error) {
+        console.error('❌ Gmail transporter error:', error);
+    } else {
+        console.log('✅ Gmail transporter е готов за изпращане');
+    }
+});
+
 async function sendEmail(to, subject, html) {
-    await transporter.sendMail({
-        from: `"MedGuide" <${process.env.EMAIL_USER}>`,
-        to,
-        subject,
-        html
-    });
+    try {
+        const info = await transporter.sendMail({
+            from: `"MedGuide" <${process.env.EMAIL_USER}>`,
+            to,
+            subject,
+            html
+        });
+
+        console.log(`📨 Email изпратен към ${to}: ${info.response}`);
+    } catch (error) {
+        console.error(`❌ Грешка при изпращане към ${to}:`, error);
+        throw error;
+    }
 }
 
 function getTodayDateString() {
@@ -31,8 +46,10 @@ function getTodayDateString() {
 async function checkMedicationReminders() {
     try {
         const now = new Date();
-        const currentTime = now.toTimeString().slice(0, 5); // HH:MM
+        const currentTime = now.toTimeString().slice(0, 5);
         const today = getTodayDateString();
+
+        console.log(`\n⏰ Проверка в ${currentTime}, дата ${today}`);
 
         const medications = await Medication.findAll({
             include: [
@@ -49,13 +66,36 @@ async function checkMedicationReminders() {
             ]
         });
 
+        console.log(`💊 Намерени лекарства: ${medications.length}`);
+
         for (const med of medications) {
-            const medTime = String(med.time).slice(0, 5);
+            const rawTime = med.time;
+            const medTime = rawTime ? String(rawTime).slice(0, 5) : null;
             const fullName = `${med.User?.firstName || ''} ${med.User?.lastName || ''}`.trim();
 
-            // Основно напомняне към потребителя
+            console.log('-------------------------');
+            console.log(`Medication ID: ${med.id}`);
+            console.log(`Name: ${med.name}`);
+            console.log(`Raw DB time: ${rawTime}`);
+            console.log(`Parsed medTime: ${medTime}`);
+            console.log(`Current time: ${currentTime}`);
+            console.log(`User ID: ${med.userId}`);
+            console.log(`User email: ${med.User?.email}`);
+            console.log(`Emergency email: ${med.User?.emergencyEmail}`);
+            console.log(`lastReminderDate: ${med.lastReminderDate}`);
+            console.log(`lastNotified: ${med.lastNotified}`);
+            console.log(`isTaken: ${med.isTaken}`);
+            console.log(`emergencyNotified: ${med.emergencyNotified}`);
+
+            if (!medTime) {
+                console.log('⚠️ Пропуснато: няма валиден час');
+                continue;
+            }
+
             if (medTime === currentTime && med.lastReminderDate !== today) {
                 if (med.User && med.User.email) {
+                    console.log(`📧 Пращам основно напомняне до ${med.User.email}`);
+
                     await sendEmail(
                         med.User.email,
                         `Напомняне за ${med.name}`,
@@ -77,17 +117,22 @@ async function checkMedicationReminders() {
                     await med.save();
 
                     console.log(`✅ Изпратено напомняне на ${med.User.email} за ${med.name}`);
+                } else {
+                    console.log('❌ Няма user или user.email');
                 }
             }
 
-            // След 15 минути email към emergency contact
             if (med.lastNotified && !med.isTaken && !med.emergencyNotified) {
                 const fifteenMinutesLater = new Date(
                     new Date(med.lastNotified).getTime() + 15 * 60 * 1000
                 );
 
+                console.log(`Emergency check after: ${fifteenMinutesLater}`);
+
                 if (now >= fifteenMinutesLater) {
                     if (med.User && med.User.emergencyEmail) {
+                        console.log(`⚠️ Пращам emergency email до ${med.User.emergencyEmail}`);
+
                         await sendEmail(
                             med.User.emergencyEmail,
                             'Спешно известие за пропуснато лекарство',
@@ -102,13 +147,15 @@ async function checkMedicationReminders() {
                         med.emergencyNotified = true;
                         await med.save();
 
-                        console.log(`⚠️ Изпратено emergency известие към ${med.User.emergencyEmail}`);
+                        console.log(`✅ Изпратено emergency известие към ${med.User.emergencyEmail}`);
+                    } else {
+                        console.log('❌ Няма emergency email');
                     }
                 }
             }
         }
     } catch (error) {
-        console.error('Грешка в reminder логиката:', error);
+        console.error('❌ Грешка в reminder логиката:', error);
     }
 }
 
