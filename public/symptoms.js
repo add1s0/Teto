@@ -131,6 +131,55 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Симптомите са добавени успешно!");
         window.location.href = "dashboard.html";
     });
+    //ottuk//
+    document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("symptomForm");
+  const errorMsg = document.createElement("p");
+  errorMsg.style.color = "red";
+  form.appendChild(errorMsg);
 
-    
+  form.addEventListener("submit", function(e) {
+    const inputs = document.querySelectorAll("#dateInput");
+
+    errorMsg.textContent = "";
+
+    const today = new Date();
+    const year = today.getFullYear();
+    const todayOnly = new Date(year, today.getMonth(), today.getDate());
+
+    for (let input of inputs) {
+      const value = input.value;
+      const parts = value.split(".");
+
+      if (parts.length !== 2) {
+        e.preventDefault();
+        errorMsg.textContent = "Невалиден формат (пример: 12.03)";
+        return;
+      }
+
+      const d = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10);
+
+      const date = new Date(year, m - 1, d);
+
+      // дали съществува
+      if (
+        date.getFullYear() !== year ||
+        date.getMonth() !== m - 1 ||
+        date.getDate() !== d
+      ) {
+        e.preventDefault();
+        errorMsg.textContent = "Тази дата не съществува";
+        return;
+      }
+
+      // бъдеща дата
+      if (date > todayOnly) {
+        e.preventDefault();
+        errorMsg.textContent = "Не може бъдеща дата";
+        return;
+      }
+    }
+  });
+});
 });
