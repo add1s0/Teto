@@ -2,17 +2,16 @@ const express = require('express');
 const router = express.Router();
 const Groq = require('groq-sdk');
 
-// Инициализираме Groq внимателно. 
-// Ако ключът липсва, подаваме празен низ, за да не спре целия сървър при старт.
+
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY || "" 
 });
 
-// Маршрут за "Generate Guide"
+
 router.post('/generate-guide', async (req, res) => {
     const { condition } = req.body;
     
-    // Проверка дали ключът е наличен преди заявката
+    
     if (!process.env.GROQ_API_KEY) {
         return res.status(500).json({ error: "AI модулът не е конфигуриран (липсва API Key)." });
     }
@@ -45,7 +44,7 @@ router.post('/generate-guide', async (req, res) => {
     }
 });
 
-// Маршрут за Chat
+
 router.post('/chat', async (req, res) => {
     const { message } = req.body;
 

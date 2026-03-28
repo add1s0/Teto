@@ -6,9 +6,7 @@ const MedicineReference = require('../models/MedicineReference');
 const Medication = require('../models/Medication');
 const User = require('../models/User');
 
-// 🔍 1. API ЗА ТЪРСЕНЕ (AUTOCOMPLETE)
-// Използва се при добавяне на лекарство, за да предлага имена от справочника
-// Път: GET /meds/search?term=...
+
 router.get('/search', async (req, res) => {
     try {
         const searchTerm = req.query.term;
@@ -33,8 +31,7 @@ router.get('/search', async (req, res) => {
     }
 });
 
-// 💊 2. API ЗА ДОБАВЯНЕ НА ЛЕКАРСТВО
-// Път: POST /meds/add
+
 router.post('/add', async (req, res) => {
     try {
         const { userId, name, dosage, time } = req.body;
@@ -43,7 +40,7 @@ router.post('/add', async (req, res) => {
             return res.status(400).json({ error: 'Името и часът са задължителни полета' });
         }
 
-        // Използваме подадения userId или 1 по подразбиране за тестови цели
+        
         const targetUserId = userId || 1;
 
         const newMedication = await Medication.create({
@@ -69,8 +66,7 @@ router.post('/add', async (req, res) => {
     }
 });
 
-// ✅ 3. ОТБЕЛЯЗВАНЕ КАТО ИЗПИТО
-// Път: POST /meds/taken/:id
+
 router.post('/taken/:id', async (req, res) => {
     try {
         const medication = await Medication.findByPk(req.params.id);
@@ -80,7 +76,7 @@ router.post('/taken/:id', async (req, res) => {
         }
 
         medication.isTaken = true;
-        medication.takenAt = new Date(); // Записваме точното време на прием
+        medication.takenAt = new Date(); 
         await medication.save();
 
         res.json({
@@ -93,12 +89,10 @@ router.post('/taken/:id', async (req, res) => {
     }
 });
 
-// 📋 4. ИЗВЛИЧАНЕ НА ВСИЧКИ ЛЕКАРСТВА (За Dashboard)
-// Път: GET /meds/all
 router.get('/all', async (req, res) => {
     try {
         const meds = await Medication.findAll({
-            order: [['time', 'ASC']], // Сортираме ги по час, за да изглеждат добре в графика
+            order: [['time', 'ASC']], 
             include: [
                 {
                     model: User,
@@ -113,7 +107,7 @@ router.get('/all', async (req, res) => {
     }
 });
 
-// 📋 5. АЛТЕРНАТИВЕН МАРШРУТ (Ако фронтендът търси просто /meds)
+
 router.get('/', async (req, res) => {
     try {
         const meds = await Medication.findAll({

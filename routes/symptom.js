@@ -3,21 +3,21 @@ const router = express.Router();
 const { Op } = require('sequelize');
 const Event = require('../models/Event');
 
-// --- 📋 ИЗВЛИЧАНЕ НА ДАННИ ЗА DASHBOARD ---
+
 router.get('/summary', async (req, res) => {
     try {
-        const targetUserId = 1; // За тестове ползваме ID 1
+        const targetUserId = 1;
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        // 1. Вземаме последните 3 симптома за малката история (Sidebar)
+        
         const recentEvents = await Event.findAll({
             where: { userId: targetUserId, type: 'symptom' },
             order: [['createdAt', 'DESC']],
             limit: 3
         });
 
-        // 2. Броим колко симптома са записани за днес
+        
         const countToday = await Event.count({
             where: {
                 userId: targetUserId,
@@ -37,7 +37,7 @@ router.get('/summary', async (req, res) => {
     }
 });
 
-// --- ➕ ЗАПИСВАНЕ НА НОВИ СИМПТОМИ (Твоят съществуващ маршрут) ---
+
 router.post('/add', async (req, res) => {
     try {
         const { symptoms, userId } = req.body;
