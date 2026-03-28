@@ -13,9 +13,9 @@ const transporter = nodemailer.createTransport({
 
 transporter.verify((error) => {
     if (error) {
-        console.error('❌ Gmail transporter error:', error);
+        console.error('Gmail transporter error:', error);
     } else {
-        console.log('✅ Gmail transporter е готов за изпращане');
+        console.log('Gmail transporter е готов за изпращане');
     }
 });
 
@@ -28,9 +28,9 @@ async function sendEmail(to, subject, html) {
             html
         });
 
-        console.log(`📨 Email изпратен към ${to}: ${info.response}`);
+        console.log(`Email изпратен към ${to}: ${info.response}`);
     } catch (error) {
-        console.error(`❌ Грешка при изпращане към ${to}:`, error);
+        console.error(`Грешка при изпращане към ${to}:`, error);
         throw error;
     }
 }
@@ -62,7 +62,7 @@ async function checkMedicationReminders() {
         const currentTime = formatHHMM(now);
         const today = getTodayDateString();
 
-        console.log(`\n⏰ Проверка в ${currentTime}, дата ${today}`);
+        console.log(`\n Проверка в ${currentTime}, дата ${today}`);
 
         const medications = await Medication.findAll({
             include: [
@@ -79,7 +79,7 @@ async function checkMedicationReminders() {
             ]
         });
 
-        console.log(`💊 Намерени лекарства: ${medications.length}`);
+        console.log(`Намерени лекарства: ${medications.length}`);
 
         for (const med of medications) {
             const rawTime = med.time;
@@ -101,14 +101,14 @@ async function checkMedicationReminders() {
             console.log(`emergencyNotified: ${med.emergencyNotified}`);
 
             if (!medTime) {
-                console.log('⚠️ Пропуснато: няма валиден час');
+                console.log(' Пропуснато: няма валиден час');
                 continue;
             }
 
             // Основно напомняне
             if (medTime === currentTime && med.lastReminderDate !== today) {
                 if (med.User && med.User.email) {
-                    console.log(`📧 Пращам основно напомняне до ${med.User.email}`);
+                    console.log(`Пращам основно напомняне до ${med.User.email}`);
 
                     await sendEmail(
                         med.User.email,
@@ -130,13 +130,12 @@ async function checkMedicationReminders() {
                     med.takenAt = null;
                     await med.save();
 
-                    console.log(`✅ Изпратено напомняне на ${med.User.email} за ${med.name}`);
+                    console.log(`Изпратено напомняне на ${med.User.email} за ${med.name}`);
                 } else {
-                    console.log('❌ Няма user или user.email');
+                    console.log(' Няма user или user.email');
                 }
             }
 
-            // Emergency email - от 15-тата минута нататък, но само веднъж
             if (!med.isTaken && !med.emergencyNotified && med.lastReminderDate === today) {
                 const scheduledTime = getTodayScheduledDate(medTime);
                 const emergencyTime = new Date(scheduledTime.getTime() + 15 * 60 * 1000);
@@ -172,15 +171,15 @@ async function checkMedicationReminders() {
                         med.emergencyNotified = true;
                         await med.save();
 
-                        console.log(`✅ Изпратено emergency известие към ${med.User.emergencyEmail}`);
+                        console.log(`Изпратено emergency известие към ${med.User.emergencyEmail}`);
                     } else {
-                        console.log('❌ Липсва emergency email');
+                        console.log('Липсва emergency email');
                     }
                 }
             }
         }
     } catch (error) {
-        console.error('❌ Грешка в reminder логиката:', error);
+        console.error('Грешка в reminder:', error);
     }
 }
 
@@ -189,7 +188,7 @@ function startMedicationReminderJob() {
         await checkMedicationReminders();
     });
 
-    console.log('✅ Medication reminder job е стартиран');
+    console.log(' Medication reminder е стартиран');
 }
 
 module.exports = {
