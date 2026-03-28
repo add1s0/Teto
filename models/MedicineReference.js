@@ -14,7 +14,6 @@ const MedicineReference = sequelize.define('MedicineReference', {
         type: DataTypes.TEXT 
     }
 }, {
-    // В seed.sql имаш NOW(), затова оставяме timestamps: true
     timestamps: true 
 });
 

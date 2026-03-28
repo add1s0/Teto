@@ -13,11 +13,9 @@ const SymptomReference = sequelize.define('SymptomReference', {
     },
     severity_level: { 
         type: DataTypes.INTEGER,
-        defaultValue: 1 // 1: Леко, 2: Умерено, 3: Спешно
+        defaultValue: 1 
     }
 }, {
-    tableName: 'SymptomReference', // Име на таблицата в базата
-    freezeTableName: true,         // Спира автоматичното превръщане в множествено число
     timestamps: true 
 });
 

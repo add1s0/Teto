@@ -5,15 +5,15 @@ const Event = sequelize.define('Event', {
     type: { 
         type: DataTypes.STRING, 
         allowNull: false 
-    }, // Тук ще записваме "symptom"
+    }, 
     title: { 
         type: DataTypes.STRING,
         allowNull: true
-    }, // Тук ще отиде името на симптома (напр. "Главоболие")
+    }, 
     description: { 
         type: DataTypes.TEXT,
         allowNull: true
-    }, // Тук ще отиде силата (напр. "Сила: 5/10")
+    }, 
     value: { 
         type: DataTypes.STRING,
         allowNull: true
@@ -23,7 +23,7 @@ const Event = sequelize.define('Event', {
         allowNull: false 
     }
 }, {
-    timestamps: true // Генерира автоматично createdAt (важно за сортирането в Dashboard-а)
+    timestamps: true 
 });
 
 module.exports = Event;
