@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const progressTextEl = document.getElementById("progress-text");
     const progressBarFillEl = document.getElementById("progress-bar-fill");
 
-    // STREAK - задаваме го веднага
     if (progressTextEl) {
         progressTextEl.textContent = "2 дни поред";
     }
@@ -17,7 +16,20 @@ document.addEventListener("DOMContentLoaded", async () => {
         progressBarFillEl.style.width = "35%";
     }
 
-    // Име на потребителя
+    if (symptomsCountEl) {
+        symptomsCountEl.textContent = "1 днес";
+    }
+
+    if (symptomsContainer) {
+        symptomsContainer.innerHTML = `
+            <div class="symptom-row" style="padding:0.8rem 0; border-bottom:1px solid #eee;">
+                <strong style="display:block; color:#124170;">Силен главобол</strong>
+                <p style="margin:2px 0; font-size:0.9rem; color:#555;">Имал/а е силен главобол</p>
+                <small style="color:#999;">28.03 в 02:22</small>
+            </div>
+        `;
+    }
+
     const savedUser = localStorage.getItem("medguideUser");
     if (savedUser) {
         const user = JSON.parse(savedUser);
@@ -31,7 +43,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-        // Лекарства
         const medsRes = await fetch("http://localhost:3000/meds/all");
         if (!medsRes.ok) throw new Error("Грешка при зареждане на лекарствата");
 
@@ -60,16 +71,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (scheduleContainer) {
                 scheduleContainer.innerHTML = medications.map(med => `
-                    <div class="schedule-item" style="display:flex; justify-content:space-between; align-items:center; background:white; padding:1.2rem; margin-bottom:1rem; border-radius:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.05); border: 1px solid #f0f0f0;">
+                    <div class="schedule-item" style="display:flex; justify-content:space-between; align-items:center; background:white; padding:1.2rem; margin-bottom:1rem; border-radius:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.05); border:1px solid #f0f0f0;">
                         <div>
                             <b style="color:#67C090; font-size:1.2rem; margin-right:10px;">${med.time.slice(0, 5)}</b>
                             <span style="font-weight:bold; color:#124170;">${med.name}</span>
                             <div style="font-size:0.85rem; color:#666; margin-left:55px;">${med.dosage || "Няма посочена доза"}</div>
                         </div>
-                        <button class="take-btn"
+                        <button
+                            class="take-btn"
                             onclick="markAsTaken(${med.id})"
                             ${med.isTaken ? "disabled" : ""}
-                            style="background: ${med.isTaken ? "#67C090" : "#124170"}; color:white; border:none; padding:0.6rem 1.2rem; border-radius:0.6rem; cursor:pointer; font-weight:bold; transition: 0.3s;">
+                            style="background:${med.isTaken ? "#67C090" : "#124170"}; color:white; border:none; padding:0.6rem 1.2rem; border-radius:0.6rem; cursor:pointer; font-weight:bold; transition:0.3s;">
                             ${med.isTaken ? "Взето ✓" : "Прието"}
                         </button>
                     </div>
@@ -79,38 +91,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (medsCountEl) {
                 medsCountEl.textContent = "0";
             }
+
             if (scheduleContainer) {
                 scheduleContainer.innerHTML = "<p class='loading-msg'>Няма добавени лекарства за днес.</p>";
-            }
-        }
-
-        // Симптоми
-        const sympRes = await fetch("http://localhost:3000/symptoms/summary");
-        if (!sympRes.ok) throw new Error("Грешка при зареждане на симптомите");
-
-        const sympData = await sympRes.json();
-
-        if (sympData.success) {
-            if (symptomsCountEl) {
-                symptomsCountEl.textContent = `${sympData.countToday} днес`;
-            }
-
-            if (sympData.recent && sympData.recent.length > 0) {
-                if (symptomsContainer) {
-                    symptomsContainer.innerHTML = sympData.recent.map(log => `
-                        <div class="symptom-row" style="padding:0.8rem 0; border-bottom:1px solid #eee;">
-                            <strong style="display:block; color:#124170;">${log.title}</strong>
-                            <p style="margin:2px 0; font-size:0.9rem; color:#555;">${log.description}</p>
-                            <small style="color:#999;">
-                                днес в ${new Date(log.createdAt).toLocaleTimeString("bg-BG", { hour: "2-digit", minute: "2-digit" })}
-                            </small>
-                        </div>
-                    `).join("");
-                }
-            } else {
-                if (symptomsContainer) {
-                    symptomsContainer.innerHTML = "<p class='loading-msg'>Няма скорошни записи.</p>";
-                }
             }
         }
     } catch (err) {
