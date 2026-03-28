@@ -1,4 +1,4 @@
-/* --- ГЛОБАЛНИ СТИЛОВЕ --- */
+
 body {
     background-color: #DDF4E7;
     min-height: 100vh;
@@ -25,7 +25,7 @@ footer-section {
     box-sizing: border-box;
 }
 
-/* --- КАРТИ --- */
+
 .card {
     width: 100%;
     max-width: 32rem;
@@ -36,7 +36,7 @@ footer-section {
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     box-sizing: border-box;
     position: relative;
-    /* Позволява на хикса да "излиза" от картата */
+  
     overflow: visible !important;
 }
 
@@ -51,7 +51,7 @@ footer-section {
     margin-bottom: 0.5rem;
 }
 
-/* --- ИНПУТИ И СЕЛЕКТИ --- */
+
 input, select {
     width: 100%;
     padding: 1rem;
@@ -80,15 +80,15 @@ input:focus, select:focus {
     flex: 1;
 }
 
-/* --- БУТОН ЗА ПРЕМАХВАНЕ (ХИКСЧЕТО) --- */
+
 .remove-btn {
     position: absolute;
-    top: -12px; /* Излиза малко нагоре */
-    right: -12px; /* Излиза малко надясно */
+    top: -12px; 
+    right: -12px; 
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 3px solid white; /* Белият бордюр от лекарствата */
+    border: 3px solid white; 
     background: #ff6b6b;
     color: white;
     font-size: 1rem;
@@ -107,7 +107,7 @@ input:focus, select:focus {
     background: #fa5252;
 }
 
-/* --- ГРУПА БУТОНИ ДОЛУ --- */
+
 .button-group {
     width: 100%;
     max-width: 32rem;
@@ -153,7 +153,7 @@ input:focus, select:focus {
     box-shadow: 0 5px 15px rgba(18, 65, 112, 0.2);
 }
 
-/* --- МОБИЛНА ВЕРСИЯ --- */
+
 @media (max-width: 40rem) {
     .container { padding: 1rem; }
     .card { padding: 1.5rem; }

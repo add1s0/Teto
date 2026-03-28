@@ -5,7 +5,7 @@ const expectInfo = document.getElementById("expectInfo");
 const doctorInfo = document.getElementById("doctorInfo");
 const medInfo = document.getElementById("medInfo");
 
-// 1. Генератор на ръководство
+
 generateGuideBtn.addEventListener("click", async () => {
     const condition = conditionInput.value.trim();
     if (!condition) return alert("Моля, въведете състояние.");
@@ -24,7 +24,7 @@ generateGuideBtn.addEventListener("click", async () => {
 
         const data = await res.json();
         
-        // Попълване на картите с отговорите от AI
+        
         bodyInfo.textContent = data.bodyInfo || "Няма информация.";
         expectInfo.textContent = data.expectInfo || "Няма информация.";
         doctorInfo.textContent = data.doctorInfo || "Няма информация.";
@@ -39,7 +39,7 @@ generateGuideBtn.addEventListener("click", async () => {
     }
 });
 
-// 2. Chatbot
+
 const chatInput = document.getElementById("chatInput");
 const sendBtn = document.getElementById("sendBtn");
 const chatMessages = document.getElementById("chatMessages");

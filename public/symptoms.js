@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addSymptomBtn = document.getElementById("addSymptomBtn");
     const symptomForm = document.getElementById("symptomForm");
 
-    // --- ОРИГИНАЛНИ ФУНКЦИИ (БЕЗ ПРОМЯНА) ---
+   
 
     function attachRemoveEvent(button) {
         button.addEventListener("click", () => {
@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (timeInput) attachTimeFormatting(timeInput);
     }
 
-    // Първоначално закачане на събития
     document.querySelectorAll(".symptom-card").forEach(card => {
         attachCardEvents(card);
     });
@@ -76,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         attachCardEvents(symptomCard);
     });
 
-    // --- ОБНОВЕНА ЛОГИКА ЗА ИЗПРАЩАНЕ КЪМ БЕКЕНДА ---
+    
 
     symptomForm.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -118,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         try {
-            // Изпращане към API маршрута в symptom.js
+            
             const response = await fetch("http://localhost:3000/symptoms/add", {
                 method: "POST",
                 headers: {
